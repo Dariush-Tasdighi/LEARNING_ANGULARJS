@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<div style="direction: rtl; font-size: 10pt; font-family: Tahoma">
+		به کاراکترهای
+		'
+		که در ابتدا و انتهای نشانی درج شده است، توجه فرماييد
+	</div>
+
+	<!--
+	<div ng-include="/Templates/Template01.html"></div>
+	<br />
+	-->
+	<div ng-include="'/Templates/Template01.html'"></div>
+	<br />
+	<div ng-include src="'/Templates/Template01.html'"></div>
+	<br />
+	<div data-ng-include data-src="'/Templates/Template01.html'"></div>
+	<br />
+	<!-- این از همه بهتر است -->
+	<div data-ng-include="'/Templates/Template01.html'"></div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.person =
+						{
+							age: 20,
+							fullName: "Ali Reza Alavi",
+						};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<button type="button" data-ng-click="getPeople()">Get People</button>
+	<button type="button" data-ng-click="createPerson()">Create Person</button>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			//varMainApplication.factory('peopleService', ['$http', function ($http) {
+
+			//	var varDataFactory = {};
+
+			//	varDataFactory.get = function () {
+
+			//		return ($http.get('/Person/GetData'));
+
+			//	};
+
+			//	varDataFactory.create = function (person) {
+
+			//		return ($http.post('/Person/Create', person));
+
+			//	};
+
+			//	return (varDataFactory);
+
+			//}]);
+
+			//varMainApplication.factory('peopleService', function ($http) {
+
+			//	var varDataFactory = {};
+
+			//	varDataFactory.getPeople = function () {
+
+			//		return ($http.get('/Person/GetData'));
+
+			//	};
+
+			//	varDataFactory.createPerson = function (person) {
+
+			//		return ($http.post('/Person/Create', person));
+
+			//	};
+
+			//	return (varDataFactory);
+
+			//});
+
+			varMainApplication.factory('mainService', function ($http) {
+
+				var varPerson = {};
+				var varFactory = {};
+
+				var varReturn =
+					{
+						person: varPerson,
+						factory: varFactory,
+					};
+
+				varReturn.person.get = function () {
+
+					return ($http.get('/Person/GetData'));
+
+				};
+
+				varReturn.person.create = function (person) {
+
+					return ($http.post('/Person/Create', person));
+
+				};
+
+				varReturn.factory.get = function () {
+
+					return ($http.get('/Factory/GetData'));
+
+				};
+
+				varReturn.factory.create = function (factory) {
+
+					return ($http.post('/Factory/Create', factory));
+
+				};
+
+				return (varReturn);
+
+			});
+
+			var varMainController =
+				function ($scope, mainService) {
+
+					$scope.getPeople = function () {
+
+						//peopleService.getPeople()
+						//	.error(function (response) {
+
+						//	})
+						//	.success(function (response) {
+
+						//		$scope.People = response;
+
+						//	});
+
+						mainService.person.get()
+							.error(function (response) {
+
+							})
+							.success(function (response) {
+
+								$scope.People = response;
+
+							});
+
+					};
+
+					$scope.createPerson = function () {
+
+						var varPerson =
+							{
+								Age: 20,
+								FullName: 'Ali Reza Alavi',
+							};
+
+						//peopleService.createPerson(varPerson)
+						//	.error(function (response) {
+
+						//	})
+						//	.success(function (response) {
+
+						//	});
+
+						mainService.person.create(varPerson)
+							.error(function (response) {
+
+							})
+							.success(function (response) {
+
+								$scope.People = response;
+
+							});
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+	<h3>
+		Welcome, {{ fullName }}!
+	</h3>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		// Solution (1)
+		//(function () {
+
+		//	var varMainApplication =
+		//		angular.module('mainApplication', []);
+
+		//	var varMainController =
+		//		function ($scope) {
+
+		//			$scope.fullName = 'Dariush Tasdighi';
+
+		//		};
+
+		//	varMainApplication.controller('mainController', varMainController);
+
+		//}());
+		// /Solution (1)
+
+		// Solution (2)
+		// Note: Channing!
+
+		//angular.module('mainApplication', [])
+		//	.controller('mainController', function ($scope) {
+
+		//		$scope.fullName = 'Dariush Tasdighi';
+
+		//	})
+		//;
+		// /Solution (2)
+
+		// Solution (3)
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+
+			.controller('mainController', function ($scope) {
+
+				$scope.fullName = 'Dariush Tasdighi';
+
+			})
+		;
+		// /Solution (3)
+
+	</script>
+</body>
+</html>

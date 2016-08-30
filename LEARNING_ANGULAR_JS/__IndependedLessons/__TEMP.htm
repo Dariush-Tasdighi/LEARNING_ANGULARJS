@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Name
+			</th>
+			<th>
+				Price
+			</th>
+			<th>
+			</th>
+			<th>
+				Count
+			</th>
+			<th>
+				Sub Total
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in items">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ item.name }}
+			</td>
+			<td>
+				{{ item.price }}
+			</td>
+			<td>
+				<button type="button" data-ng-click="plus(item)">+</button>
+				<button type="button" data-ng-click="minus(item)">-</button>
+			</td>
+			<td>
+				{{ item.count }}
+			</td>
+			<td>
+				{{ item.count * item.price }}
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="5"></td>
+			<td>
+				{{ displayTotal() }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.items =
+						[
+							{ name: 'Product (1)', count: 1, price: '10', },
+							{ name: 'Product (2)', count: 1, price: '20', },
+							{ name: 'Product (3)', count: 1, price: '30', },
+							{ name: 'Product (4)', count: 1, price: '40', },
+						];
+
+					$scope.plus = function (item) {
+
+						//item.count = item.count + 1;
+						//item.count += 1;
+						//++item.count;
+						item.count++;
+
+					};
+
+					$scope.minus = function (item) {
+
+						if (item.count > 0) {
+
+							item.count--;
+
+						}
+
+					};
+
+					$scope.displayTotal = function () {
+
+						var total = 0;
+
+						for (var index = 0; index <= $scope.items.length - 1; index++) {
+
+							var currentItem = $scope.items[index];
+
+							total += currentItem.count * currentItem.price;
+
+							//total += $scope.items[index].count * $scope.items[index].price;
+
+						}
+
+						return (total);
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

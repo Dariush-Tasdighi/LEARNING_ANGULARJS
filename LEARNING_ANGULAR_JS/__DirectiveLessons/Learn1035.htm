@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<input type="text" data-ng-model="person.fullName" />
+
+	<br />
+	<br />
+
+	<display-person-information></display-person-information>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.person =
+					{
+						id: 1,
+						age: 20,
+						fullName: "Sara Alavi",
+					};
+
+			});
+
+			varMainApplication.directive("displayPersonInformation", function () {
+
+				return ({
+
+					template: "I'm <b>{{ person.fullName }}</b> and <b>{{ person.age }}</b> years old.",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+</html>

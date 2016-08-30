@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+	<h1>
+		{{ companyName }}
+	</h1>
+
+	<h3>
+		I'm {{ person.fullName }} and {{ person.age }} years old and I'm working in {{ person.company.name }}.
+	</h3>
+
+	<h5>
+		{{ person.displayFullName() }}
+	</h5>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+
+			.controller('mainController', function ($scope, $rootScope) {
+
+				//$scope.person = { fullName: 'Ali Reza Alavi', age: 20 };
+
+				//$scope.person = { fullName: 'Ali Reza Alavi', age: 20, };
+
+				//$scope.person =
+				//	{
+				//		fullName: 'Ali Reza Alavi',
+				//		age: 20,
+				//	};
+
+				//$scope.person =
+				//	{
+				//		age: 20,
+				//		fullName: 'Ali Reza Alavi',
+				//	};
+
+				$scope.person =
+					{
+						age: 20,
+						fullName: 'Ali Reza Alavi',
+						displayFullName: function () {
+
+							return ('I am ' + this.fullName + ' and ' + this.age + ' years old!');
+
+						},
+						company:
+							{
+								name: 'Iran Khodro Co.',
+							},
+					};
+
+			})
+		;
+
+	</script>
+</body>
+</html>

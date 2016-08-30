@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	(0)
+	<displaypersoninformation></displaypersoninformation>
+	Note: Wrong Usage
+
+	<br />
+
+	(1)
+	<display-person-information></display-person-information>
+
+	<br />
+
+	(2)
+	<display:person:information></display:person:information>
+
+	<br />
+
+	(3)
+	<display_person_information></display_person_information>
+
+	<br />
+
+	(4)
+	<display:person_information></display:person_information>
+
+	<br />
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.person =
+					{
+						id: 1,
+						age: 20,
+						fullName: "Ali Reza Alavi",
+					};
+
+			});
+
+			varMainApplication.directive("displayPersonInformation", function () {
+
+				return ({
+
+					//template: "I'm Ali Reza Alavi and 20 years old.",
+					//template: "I'm {{ person.fullName }} and {{ person.age }} years old.",
+					template: "I'm <b>{{ person.fullName }}</b> and <b>{{ person.age }}</b> years old.",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+</html>

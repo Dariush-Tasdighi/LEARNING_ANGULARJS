@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<input type="number" data-ng-model="take" />
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Odd
+			</th>
+			<th>
+				Even
+			</th>
+			<th>
+				Full Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in people | limitTo: take">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ $odd }}
+			</td>
+			<td>
+				{{ $even }}
+			</td>
+			<td>
+				{{ item.fullName }}
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.take = 2;
+
+					$scope.people =
+						[
+							{ fullName: 'Sara Alavi', age: 20, },
+							{ fullName: 'Ali Rezazadeh', age: 30, },
+							{ fullName: 'Dariush Tasdighi', age: 40, },
+							{ fullName: 'Seyed Ali Reza Alavi', age: 50, },
+						];
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+﻿@model Models.Person
+
+@*@Html.TextBoxFor(model => model.FirstName, new { data-ng-model = "FirstName" })*@
+
+@Html.TextBoxFor(model => model.FirstName, new { data_ng_model = "FirstName" })
+
+@*@Html.DtxTextBoxFor(model => model.FirstName)*@

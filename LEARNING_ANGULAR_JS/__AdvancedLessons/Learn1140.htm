@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<button type="button" data-ng-click="getPeople()">Get People</button>
+	<button type="button" data-ng-click="createPerson()">Create Person</button>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		// در يک فايل خارجی
+
+		var varMainApplication =
+			angular.module("mainApplication", [])
+				.factory("peopleService", ["$http", function ($http) {
+
+					var varDataFactory = {};
+
+					varDataFactory.get = function () {
+
+						return ($http.get("/Person/GetData"));
+
+					};
+
+					varDataFactory.create = function (person) {
+
+						return ($http.post("/Person/Create", person));
+
+					};
+
+					return (varDataFactory);
+
+				}])
+				.factory('gendersService', ['$http', function ($http) {
+				}])
+		;
+
+		// در همين فايل
+
+		varMainApplication.controller('mainController', function ($scope, peopleService) {
+
+			$scope.getPeople = function () {
+
+				peopleService.get()
+					.error(function (response) {
+
+					})
+					.success(function (response) {
+
+						$scope.People = response;
+
+					});
+
+			};
+
+			$scope.createPerson = function () {
+
+				var varPerson =
+					{
+						Age: 20,
+						FullName: "Ali Reza Alavi",
+					};
+
+				peopleService.create(varPerson)
+					.error(function (response) {
+
+					})
+					.success(function (response) {
+
+					});
+
+			};
+
+		});
+
+	</script>
+</body>
+</html>

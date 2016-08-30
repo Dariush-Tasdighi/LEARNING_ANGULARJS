@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		Full Name: {{ person.fullName }}
+		<br />
+		Birth Date: {{ person.birthDate.year }}/{{ person.birthDate.month }}/{{ person.birthDate.day }}
+		<br />
+		Birth Date: {{ person.hireDate.year }}/{{ person.hireDate.month }}/{{ person.hireDate.day }}
+
+
+		<hr />
+
+		<span data-persian-date data-date="person.birthDate" data-min-year="1300" data-max-year="1400"></span>
+		<br />
+		<span data-persian-date data-date="person.hireDate" data-min-year="1390" data-max-year="1400"></span>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('dtxLibrary', []);
+
+		angular.module('dtxLibrary').directive('persianDate', function () {
+
+			return ({
+
+				scope: {
+					date: '=',
+					minYear: '=',
+					maxYear: '=',
+				},
+				restrict: 'A',
+				replace: false,
+				template: '<select data-ng-model="date.year" data-ng-options="item for item in years"></select><select data-ng-model="date.month" data-ng-options="item for item in months"></select><select data-ng-model="date.day" data-ng-options="item for item in days"></select>',
+				controller: function ($scope) {
+
+					$scope.days = [];
+
+					for (var intIndex = 1; intIndex <= 31; intIndex++) {
+
+						$scope.days.push(intIndex);
+
+					}
+
+					$scope.months = [];
+
+					for (var intIndex = 1; intIndex <= 12; intIndex++) {
+
+						$scope.months.push(intIndex);
+
+					}
+
+					$scope.years = [];
+
+					for (var intIndex = $scope.minYear; intIndex <= $scope.maxYear; intIndex++) {
+
+						$scope.years.push(intIndex);
+
+					}
+
+				},
+
+			});
+
+		});
+
+		angular.module('mainApplication', ['dtxLibrary']);
+
+		angular.module('mainApplication').controller('mainController', function ($scope) {
+
+			$scope.person =
+				{
+					fullName: 'Ali Reza Alavi',
+					birthDate:
+						{
+							year: 1351,
+							month: 11,
+							day: 28,
+						},
+					hireDate:
+						{
+							year: 1395,
+							month: 10,
+							day: 22,
+						},
+				};
+
+		});
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Learn1000</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.login = function () {
+
+						alert("Submit Button Clicked!");
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</head>
+<body>
+	<div class="container" data-ng-controller="mainController">
+
+		<form id="mainForm" name="mainForm" novalidate="novalidate" data-ng-submit="login()">
+
+			<div class="form-horizontal">
+
+				<div class='row form-group'>
+					<label class="control-label col-sm-3">Username</label>
+					<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Username.$invalid && mainForm.Username.$dirty}">
+						<input type="text" id="Username" name="Username" class="form-control" data-ng-model="Username" placeholder="Sample: DariushT" required="required" />
+
+						<div data-ng-show="mainForm.Username.$invalid && mainForm.Username.$dirty">
+							<span class="help-block" data-ng-show="mainForm.Username.$error.required">Username is required!</span>
+						</div>
+					</div>
+				</div>
+
+				<div class='row form-group'>
+					<label class="control-label col-sm-3">Password</label>
+					<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Password.$invalid && mainForm.Password.$dirty}">
+						<input type="password" id="Password" name="Password" class="form-control" data-ng-model="Password" placeholder="Sample: 1234512345" required="required" />
+
+						<div data-ng-show="mainForm.Password.$invalid && mainForm.Password.$dirty">
+							<span class="help-block" data-ng-show="mainForm.Password.$error.required">Password is required!</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						@*<button type="submit" class="btn btn-primary">Login</button>*@
+						<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+						@*<button type="submit" class="btn btn-primary" data-ng-disabled="!mainForm.$valid">Login</button>*@
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

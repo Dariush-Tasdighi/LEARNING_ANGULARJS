@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-controller="firstController as parentController">
+		<input type="text" data-ng-model="parentController.text" />
+		<br />
+		Parent Text: {{ parentController.text }}
+
+		<hr />
+
+		<div data-ng-controller="secondController as childController">
+			Text: {{ childController.text }}
+			<br />
+			<input type="text" data-ng-model="parentController.text" />
+			<br />
+			Parent Text: {{ parentController.text }}
+		</div>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varFirstController =
+				function () {
+
+					this.text = 'Text (1)';
+
+				};
+
+			varMainApplication.controller('firstController', varFirstController);
+
+			var varSecondController =
+				function () {
+
+					this.text = 'Text (2)';
+
+				};
+
+			varMainApplication.controller('secondController', varSecondController);
+
+		}());
+
+	</script>
+</body>
+</html>

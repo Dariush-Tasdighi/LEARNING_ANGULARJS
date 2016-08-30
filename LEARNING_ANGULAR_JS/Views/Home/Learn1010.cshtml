@@ -1,0 +1,145 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title></title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		body {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<button type="button" class="btn btn-primary" data-ng-click="getPerson()">Get Person</button>
+
+		<hr />
+
+		<div class="panel panel-info" data-ng-show="!!Person">
+
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					{{ Person.FirstName }} {{ Person.LastName }}
+				</h4>
+			</div>
+
+			<div class="panel-body">
+				Age: {{ Person.Age }}
+				<br />
+				Active: <input type="checkbox" data-ng-model="Person.IsActive" disabled />
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.Person = null;
+
+				$scope.getPerson = function () {
+
+					$scope.Person = null;
+
+					//$http.get('/Home/GetData1000')
+
+					//	.error(function (response) {
+
+					//		alert('Error on sending or recieving data!');
+
+					//		console.log('Error: ' + response);
+
+					//	})
+
+					//	.success(function (response) {
+
+					//		$scope.Person = response;
+
+					//	});
+
+					$http.get('/Home/GetData1000')
+
+						.then(function successCallback(response) {
+
+							$scope.Person = response.data;
+
+						}, function errorCallback(response) {
+
+							alert('Error on sending or recieving data!');
+
+							console.log
+								('Status: [' + response.status + '] - ' +
+								'Status Text: [' + response.statusText + '] - ' +
+								'Data: [' + response.data + ']');
+
+						});
+
+
+				};
+
+			});
+
+		//(function () {
+
+		//	var varMainApplication =
+		//		angular.module('mainApplication', []);
+
+		//	var varMainController =
+		//		function ($scope, $http) {
+
+		//			$scope.Person = null;
+
+		//			$scope.getPerson = function () {
+
+		//				$scope.Person = null;
+
+		//				var varPromise =
+		//					$http.get('/Home/GetData1000');
+
+		//				var varOnError =
+		//					function (response) {
+
+		//						alert('Error on sending and/or recieving data!');
+
+		//					};
+
+		//				var varOnSuccess =
+		//					function (response) {
+
+		//						$scope.Person = response;
+
+		//					};
+
+		//				varPromise.error(varOnError).success(varOnSuccess);
+
+		//			};
+
+		//		};
+
+		//	varMainApplication.controller('mainController', varMainController);
+
+		//}());
+
+	</script>
+</body>
+</html>

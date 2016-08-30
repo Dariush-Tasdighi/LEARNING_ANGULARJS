@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div data-main-directive data-action="someFunction(person)"></div>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.someFunction = function (person) {
+
+					alert("Hello " + person.firstName + " " + person.lastName + "!");
+
+				};
+
+			});
+
+			varMainApplication.directive("mainDirective", function () {
+
+				return ({
+
+					scope: {
+						action: "&",
+					},
+					restrict: "A",
+					replace: false,
+					template: "<input type='text' data-ng-model='person.firstName' /><input type='text' data-ng-model='person.lastName' /><button type='button' data-ng-click='action({ person: person })'>Click Me!</button>",
+					controller: function ($scope) {
+
+						$scope.person =
+							{
+								firstName: "Dariush",
+								lastName: "Tasdighi",
+							};
+
+					},
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+
+</html>

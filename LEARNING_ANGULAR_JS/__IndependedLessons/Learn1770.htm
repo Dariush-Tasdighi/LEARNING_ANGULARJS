@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<style>
+		.valid {
+			color: green;
+			background-color: lightgreen;
+		}
+
+		.notValid {
+			color: red;
+			background-color: lightcoral;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<input type="text" class="valid" />
+
+	<br />
+	<br />
+
+	<input type="text" class="notValid" />
+
+	<br />
+	<br />
+
+	<input type="text" data-ng-class="valid" />
+
+	<br />
+	<br />
+
+	<input type="text" data-ng-class="notValid" />
+
+	<br />
+	<br />
+
+	<input type="text" data-ng-class="validClassName" />
+
+	<br />
+	<br />
+
+	<input type="text" data-ng-class="notValidClassName" />
+
+	<br />
+	<br />
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.validClassName = 'valid';
+					$scope.notValidClassName = 'notValid';
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

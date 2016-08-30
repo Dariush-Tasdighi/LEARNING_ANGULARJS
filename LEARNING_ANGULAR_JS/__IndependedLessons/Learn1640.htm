@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<!--<button data-ng-click="doSomething()">Click Me!</button>-->
+
+	<!--<button type="button" data-ng-click="doSomething">Click Me!</button>-->
+
+	<button type="button" data-ng-click="doSomething()">Click Me!</button>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.doSomething = function () {
+
+						alert('Hello World!');
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

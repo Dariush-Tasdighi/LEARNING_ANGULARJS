@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<div data-display-person-information></div>
+
+	<div data-display-person-information></div>
+
+	<div data-display-person-information></div>
+
+	<div data-display-person-information></div>
+
+	<div data-display-person-information></div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.person =
+					{
+						id: 1,
+						age: 20,
+						fullName: "Sara Alavi",
+					};
+
+			});
+
+			varMainApplication.directive("displayPersonInformation", function () {
+
+				return ({
+
+					restrict: "A",
+					replace: true,
+					templateUrl: "/Templates/DisplayPersonInformation01.html",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+</html>

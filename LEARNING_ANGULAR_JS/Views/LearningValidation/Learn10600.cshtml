@@ -1,0 +1,199 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Learn1000</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+
+		span.required {
+			color: red;
+			font-family: Tahoma;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.login = function () {
+
+						alert("Submit Button Clicked!");
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</head>
+<body>
+	<div class="container">
+
+		<div data-ng-controller="mainController">
+			<form id="mainForm" name="mainForm" novalidate="novalidate" data-ng-submit="login()">
+
+				<div class="form-horizontal">
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Username
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Username.$invalid && mainForm.Username.$dirty}">
+							<input type="text" id="Username" name="Username" class="form-control" data-ng-model="Username" placeholder="Username" required="required" />
+
+							<div data-ng-show="mainForm.Username.$invalid && mainForm.Username.$dirty">
+								<span class="help-block" data-ng-show="mainForm.Username.$error.required">Required!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Password
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Password.$invalid && mainForm.Password.$dirty}">
+							<input type="password" id="Password" name="Password" class="form-control" data-ng-model="Password" placeholder="Password" required="required" />
+
+							<div data-ng-show="mainForm.Password.$invalid && mainForm.Password.$dirty">
+								<span class="help-block" data-ng-show="mainForm.Password.$error.required">Required!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Confirm Password
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.ConfirmPassword.$invalid && mainForm.ConfirmPassword.$dirty}">
+							<input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" data-ng-model="ConfirmPassword" placeholder="Confirm Password" required="required" data-ng-compare="Password" />
+
+							<div data-ng-show="mainForm.ConfirmPassword.$invalid && mainForm.ConfirmPassword.$dirty">
+								<span class="help-block" data-ng-show="mainForm.ConfirmPassword.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.ConfirmPassword.$error.compare">Confirm Password is not equal to Password!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Email Address
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.EmailAddress.$invalid && mainForm.EmailAddress.$dirty}">
+							<input type="email" id="EmailAddress" name="EmailAddress" class="form-control" data-ng-model="EmailAddress" placeholder="Email Address" required="required" />
+
+							<div data-ng-show="mainForm.EmailAddress.$invalid && mainForm.EmailAddress.$dirty">
+								<span class="help-block" data-ng-show="mainForm.EmailAddress.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.EmailAddress.$error.email">Not a valid Email Address!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Home Page
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.HomePage.$invalid && mainForm.HomePage.$dirty}">
+							<input type="url" id="HomePage" name="HomePage" class="form-control" data-ng-model="HomePage" placeholder="Home Page" required="required" />
+
+							<div data-ng-show="mainForm.HomePage.$invalid && mainForm.HomePage.$dirty">
+								<span class="help-block" data-ng-show="mainForm.HomePage.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.HomePage.$error.url">Not a valid Url!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Number Property
+							<span class="required">*</span>
+						</label>
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.NumberProperty.$invalid && mainForm.NumberProperty.$dirty}">
+							<input type="number" id="NumberProperty" name="NumberProperty" class="form-control" data-ng-model="NumberProperty" placeholder="Number Property" required="required" />
+
+							<div data-ng-show="mainForm.NumberProperty.$invalid && mainForm.NumberProperty.$dirty">
+								<span class="help-block" data-ng-show="mainForm.NumberProperty.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.NumberProperty.$error.number">You should use just digits!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Some Property (1) (3 to 20)
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.SomeProperty.$invalid && mainForm.SomeProperty.$dirty}">
+							<input type="text" id="SomeProperty" name="SomeProperty" class="form-control" data-ng-model="SomeProperty1" placeholder="Some Property (1)" required="required" data-ng-minlength="3" data-ng-maxlength="20" />
+
+							<div data-ng-show="mainForm.SomeProperty.$invalid && mainForm.SomeProperty.$dirty">
+								<span class="help-block" data-ng-show="mainForm.SomeProperty.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.SomeProperty.$error.minlength">You should write min 3 chars!</span>
+								<span class="help-block" data-ng-show="mainForm.SomeProperty.$error.maxlength">You should write max 20 chars!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label class="control-label col-sm-3">
+							Some Property 2
+							<span class="required">*</span>
+						</label>
+
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.SomeProperty2.$invalid && mainForm.SomeProperty2.$dirty}">
+							<input type="text" id="SomeProperty2" name="SomeProperty2" class="form-control" data-ng-model="SomeProperty2" placeholder="Some Property (2)" required="required" data-ng-pattern="/^[0-9]{3,7}$/" />
+
+							<div data-ng-show="mainForm.SomeProperty2.$invalid && mainForm.SomeProperty2.$dirty">
+								<span class="help-block" data-ng-show="mainForm.SomeProperty2.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.SomeProperty2.$error.pattern">Not a valid number!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-sm-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+							<button type="reset" class="btn btn-default" data-ng-click="mainForm.$setPristine()">Reset</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>

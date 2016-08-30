@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-controller="firstController">
+		Text: <input type="text" data-ng-model="text" />
+
+		<hr />
+
+		<div data-ng-controller="secondController">
+			Text: <input type="text" data-ng-model="text" />
+		</div>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varFirstController =
+				function ($scope) {
+
+					$scope.text = 'Text (1)';
+
+				};
+
+			varMainApplication.controller('firstController', varFirstController);
+
+			var varSecondController =
+				function ($scope) {
+
+					$scope.text = 'Text (2)';
+
+				};
+
+			varMainApplication.controller('secondController', varSecondController);
+
+		}());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title></title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button type="button" class="btn btn-primary" data-ng-click="doSomething()">Do Something</button>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="../Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.doSomething = function () {
+
+						$("div#myLoadingModal").modal({ backdrop: false, keyboard: false, });
+
+						var varInputData = { id: 2 };
+
+						$http.post("/Home/GetData1020", varInputData)
+							.error(function (response) {
+
+								$("div#myLoadingModal").modal("toggle");
+
+								alert("Error on sending and/or recieving data!");
+
+							}).success(function (response) {
+
+								$("div#myLoadingModal").modal("toggle");
+
+								$scope.MessageText = response.MessageText;
+								$scope.MessageTitle = response.MessageTitle;
+
+								if (response.DisplayMessage) {
+
+									$("div#myDisplayMessage").modal();
+
+								}
+
+							});
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+
+	<div id="myDisplayMessage" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myDisplayMessageLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myDisplayMessageLabel">{{ MessageTitle }}</h4>
+				</div>
+
+				<div class="modal-body">
+					{{ MessageText }}
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">Loading...</h4>
+				</div>
+
+				<div class="modal-body">
+					<img src="~/Content/Images/Loading.gif" alt="Loading..." title="Loading..." />
+					Please Wait!
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

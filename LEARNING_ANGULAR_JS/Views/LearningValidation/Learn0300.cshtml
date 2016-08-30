@@ -1,0 +1,77 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Learn 100</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module("mainApplication", []);
+
+		angular.module("mainApplication")
+
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.login = function () {
+
+					alert("Submit Button Clicked!");
+
+				};
+
+			});
+
+	</script>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<form id="mainForm" name="mainForm" novalidate data-ng-submit="login()">
+
+			<div class="form-horizontal">
+				<div class="row form-group">
+					<label class="control-label col-sm-3">Email Address</label>
+					<div class='col-sm-9' data-ng-class="{'has-error': mainForm.email.$invalid && mainForm.email.$dirty}">
+						<input type="text" id="email" name="email" class="form-control" data-ng-model="Person.EmailAddress" placeholder="Sample: DariushT@Gmail.com" required />
+
+						<div data-ng-show="mainForm.email.$invalid && mainForm.email.$dirty">
+							<span class="help-block" data-ng-show="mainForm.email.$error.required">Email Address is required!</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						@*<button type="submit" class="btn btn-primary">Login</button>*@
+						@*<button type="submit" class="btn btn-primary" data-ng-disabled="!mainForm.$valid">Login</button>*@
+						<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+
+						@*<button type="reset" class="btn btn-default">Reset</button>*@
+						<button type="reset" class="btn btn-default" data-ng-click="mainForm.$setPristine()">Reset</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</body>
+</html>

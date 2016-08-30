@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Odd
+			</th>
+			<th>
+				Even
+			</th>
+			<th>
+				Full Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in people | orderBy: ['age', 'fullName']">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ $odd }}
+			</td>
+			<td>
+				{{ $even }}
+			</td>
+			<td>
+				{{ item.fullName }}
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.people =
+						[
+							{ fullName: 'Sara Alavi', age: 20, },
+							{ fullName: 'Ali Rezazadeh', age: 30, },
+							{ fullName: 'Dariush Tasdighi', age: 20, },
+							{ fullName: 'Ali Reza Alavi', age: 50, },
+							{ fullName: 'Sanaz Yousefi', age: 20, },
+							{ fullName: 'Mohammad Ghaderi', age: 50, },
+							{ fullName: 'Erfan Sedghi', age: 20, },
+						];
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

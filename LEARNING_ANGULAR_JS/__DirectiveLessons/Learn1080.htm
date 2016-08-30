@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	(1)
+	<display-person-information></display-person-information>
+
+	<br />
+
+	(2)
+	<div data-display-person-information></div>
+
+	<br />
+
+	(3)
+	<div class="display-person-information"></div>
+
+	<br />
+
+	(4)
+	<!-- directive: display-person-information -->
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.person =
+					{
+						id: 1,
+						age: 20,
+						fullName: "Sara Alavi",
+					};
+
+			});
+
+			varMainApplication.directive("displayPersonInformation", function () {
+
+				return ({
+
+					// Note: Ordering is not important!
+					restrict: "AE",
+					template: "I'm {{ person.fullName }} and {{ person.age }} years old.",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+</html>

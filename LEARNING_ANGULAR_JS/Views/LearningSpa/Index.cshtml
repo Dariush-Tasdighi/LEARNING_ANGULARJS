@@ -1,0 +1,151 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Index</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script src="~/Scripts/angular.min.js"></script>
+	<script src="~/Scripts/angular-route.min.js"></script>
+</head>
+<body data-ng-controller="mainController">
+	<div class="container">
+
+		<a href="#/Home">Home</a>
+
+		<div class="table-responsive">
+			<table class="table table-bordered table-condensed table-striped table-hover">
+				<tr>
+					<th>
+						#
+					</th>
+					<th>
+					</th>
+					<th>
+						First Name
+					</th>
+					<th>
+						Last Name
+					</th>
+				</tr>
+
+				<tr data-ng-repeat="item in People">
+					<td>
+						{{ $index + 1 }}
+					</td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="displayEditView(item)">Edit</button>
+					</td>
+					<td>
+						{{ item.FirstName }}
+					</td>
+					<td>
+						{{ item.LastName}}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div data-ng-view></div>
+	</div>
+
+	<script>
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", ["ngRoute"]);
+
+			var varMainController =
+				function ($scope, $http, $location) {
+
+					$scope.People = [];
+					$scope.CurrentPerson = null;
+
+					$http.post("/LearningSpa/GetPeople").error(function (response) {
+
+						//$("div#myLoadingModal").modal("toggle");
+
+						alert("Error on sending and/or recieving data!");
+
+					}).success(function (response) {
+
+						$scope.People = response;
+
+						//$("div#myLoadingModal").modal("toggle");
+
+					});
+
+					$scope.displayEditView = function (item) {
+
+						var varData = { Id: item.Id };
+
+						$http.post("/LearningSpa/GetPerson", varData).error(function (response) {
+
+							//$("div#myLoadingModal").modal("toggle");
+
+							alert("Error on sending and/or recieving data!");
+
+						}).success(function (response) {
+
+							$scope.CurrentPerson = response;
+
+							//$("div#myLoadingModal").modal("toggle");
+
+							$location.path("DisplayEditView");
+
+						});
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+			var varMainRouteConfig =
+				function ($routeProvider) {
+
+					$routeProvider.
+						when("/Home", {
+
+							templateUrl: "/Templates/Home.html",
+
+						})
+
+						.when("/DisplayEditView", {
+
+							templateUrl: "/LearningSpa/GetEditView",
+
+						})
+
+						.otherwise({
+
+							redirectTo: "/Home",
+
+						});
+
+				};
+
+			varMainApplication.config(varMainRouteConfig);
+
+		}());
+
+	</script>
+</body>
+</html>

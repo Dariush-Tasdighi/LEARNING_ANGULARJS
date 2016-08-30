@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app>
+<head>
+	<title></title>
+</head>
+<body>
+	<h3>
+		(1)
+		{{ 9876543.123456 }}
+	</h3>
+
+	<h3>
+		(2)
+		{{ 9876543.123456 | currency }}
+	</h3>
+
+	<h3>
+		(3)
+		{{ 9876543.128456 | currency }}
+	</h3>
+
+	<h3>
+		(4)
+		{{ 9876543.123456 | currency : 'ريال' }}
+	</h3>
+
+	<h3>
+		(5)
+		{{ 9876543.123456 | number }}
+	</h3>
+
+	<h3>
+		(6)
+		{{ 9876543.123856 | number }}
+	</h3>
+
+	<h3>
+		(7)
+		{{ 9876543.123456 | number : 2 }}
+	</h3>
+
+	<h3>
+		(8)
+		{{ 9876543.123456 | number : 3 }}
+	</h3>
+
+	<h3>
+		(9)
+		{{ 9876543.123456 | number : 4 }}
+	</h3>
+
+	<h3>
+		(10)
+		{{ 'Hello World!' }}
+	</h3>
+
+	<h3>
+		(11)
+		{{ 'Hello World!' | uppercase }}
+	</h3>
+
+	<h3>
+		(12)
+		{{ 'Hello World!' | lowercase }}
+	</h3>
+
+	<h3>
+		(13)
+		{{ 'Hello World!' | limitTo: 4 }}
+	</h3>
+
+	<h3>
+		(14)
+		{{ 'Hello World!' | uppercase | limitTo: 4 }}
+	</h3>
+
+	<h3>
+		(15)
+		{{ 'Hello World!' | limitTo: 4 | uppercase }}
+	</h3>
+
+	<script src="../Scripts/angular.min.js"></script>
+</body>
+</html>

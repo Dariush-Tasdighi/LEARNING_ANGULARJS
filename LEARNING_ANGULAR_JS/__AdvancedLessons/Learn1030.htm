@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-controller="mainController as vm">
+		Text 1: {{ vm.text1 }}
+		<br />
+		Text 2: {{ vm.text2 }}
+
+		<br />
+		<br />
+
+		Text 1: {{ text1 }}
+		<br />
+		Text 2: {{ text2 }}
+
+
+		<hr />
+
+		Text 3: {{ text3 }}
+		<br />
+		Text 4: {{ text4 }}
+
+		<br />
+		<br />
+
+		Text 3: {{ vm.text3 }}
+		<br />
+		Text 4: {{ vm.text4 }}
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					this.text1 = 'Text (1)';
+					this['text2'] = 'Text (2)';
+
+					$scope.text3 = 'Text (3)';
+					$scope['text4'] = 'Text (4)';
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

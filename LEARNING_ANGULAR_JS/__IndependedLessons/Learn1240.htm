@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app>
+<head>
+	<title></title>
+</head>
+<body>
+	<div>
+		Full Name
+		<br />
+		<input type="text" data-ng-model="fullName" />
+	</div>
+
+	<div data-ng-show="(fullName != null) && (fullName != '')">
+		<br />
+		Address
+		<br />
+		<input type="text" data-ng-model="address" />
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+</body>
+</html>

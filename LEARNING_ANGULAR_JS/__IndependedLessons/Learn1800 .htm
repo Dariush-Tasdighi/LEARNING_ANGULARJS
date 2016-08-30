@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<style>
+
+		input.disabled {
+			color: black;
+			background-color: lightgray;
+
+			border: 0;
+			margin: 0;
+			padding: 0;
+		}
+
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Full Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in people">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td data-ng-click="editFullName(item)">
+				<input type="text" data-ng-model="item.fullName" data-ng-class="getClassName(item)" data-ng-disabled="item != selectedPerson" />
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.selectedPerson = null;
+
+					$scope.people =
+						[
+							{ id: 1, fullName: 'Sara Alavi', description: 'Nothing (1)', age: 20, },
+							{ id: 2, fullName: 'Ali Rezazadeh', description: 'Nothing (2)', age: 30, },
+							{ id: 3, fullName: 'Dariush Tasdighi', description: 'Nothing (3)', age: 40, },
+							{ id: 4, fullName: 'Seyed Ali Reza Alavi', description: 'Nothing (4)', age: 50, },
+						];
+
+					$scope.editFullName = function (item) {
+
+						$scope.selectedPerson = item;
+
+					};
+
+					$scope.getClassName = function (item) {
+
+						if ($scope.selectedPerson != item) {
+
+							return ('disabled');
+
+						}
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

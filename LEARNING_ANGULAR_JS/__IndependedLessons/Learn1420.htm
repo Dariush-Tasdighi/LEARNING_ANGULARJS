@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+	<div data-ng-controller="mainController">
+		<h3>
+			Some Field: {{ someField }}
+		</h3>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+
+			.controller('mainController', function ($scope, $rootScope) {
+
+				//.تعریف کرده‌ایم، جایگزین می‌شود rootScope تعریف می‌کنیم، مقدار آن بر روی متغیری که با همان نام در scope دقت کنید که همیشه متغیری که در سطح
+
+				$scope.someField = 'Hello';
+				$rootScope.someField = 'World';
+
+				//$rootScope.someField = 'World';
+				//$scope.someField = 'Hello';
+
+			})
+		;
+
+	</script>
+</body>
+</html>

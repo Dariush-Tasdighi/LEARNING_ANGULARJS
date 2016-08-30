@@ -1,0 +1,134 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="myApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Index</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+
+	<script src="~/Scripts/angular.min.js"></script>
+	<script src="~/Scripts/ng-file-upload.min.js"></script>
+
+	<script>
+
+		var app = angular.module('myApplication', ['ngFileUpload']);
+
+		app.controller('myController', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+
+			$scope.People =
+				[
+					{ FullName: "Sara Alavi", NationalCode: "11111", File: null, },
+					{ FullName: "Ali Reza Alavi", NationalCode: "22222", File: null, },
+					{ FullName: "Dariush Tasdighi", NationalCode: "33333", File: null, },
+				];
+
+			$scope.uploadFiles = function (file, item) {
+
+				file.upload = Upload.upload({
+					file: file,
+					fields: { NationalCode: item.NationalCode },
+					method: 'POST',
+					fileFormDataName: 'myFile',
+					url: '/FileUpload/ManageUploadedFiles',
+					headers: {
+						'my-header': 'my-header-value'
+					},
+				});
+
+				file.upload.then(function (response) {
+
+					$timeout(function () {
+
+						file.result = response.data;
+
+					});
+
+				}, function (response) {
+
+					if (response.status > 0) {
+
+						item.File.ErrorMessage =
+							response.status + ': ' + response.data;
+
+					}
+				});
+
+				file.upload.progress(function (evt) {
+
+					file.progress =
+						Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+
+				});
+
+			};
+
+		}]);
+
+	</script>
+</head>
+<body data-ng-controller="myController">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12 table-responsive">
+				<table class="table table-bordered table-condensed table-striped table-hover">
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Full Name
+						</th>
+						<th>
+							National Code
+						</th>
+						<th>
+						</th>
+						<th>
+						</th>
+						<th>
+							Progress
+						</th>
+					</tr>
+
+					<tr data-ng-repeat="item in People">
+						<td>
+							{{ $index + 1 }}
+						</td>
+						<td>
+							{{ item.FullName }}
+						</td>
+						<td>
+							{{ item.NationalCode }}
+						</td>
+						<td>
+							<input type="file" data-ng-model="item.File" ngf-select />
+						</td>
+						<td>
+							<button type="button" data-ng-click="uploadFiles(item.File, item)">Upload</button>
+						</td>
+						<td>
+							{{ item.File.progress }}%
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

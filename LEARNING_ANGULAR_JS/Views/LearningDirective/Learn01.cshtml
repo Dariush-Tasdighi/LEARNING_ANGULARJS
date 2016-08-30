@@ -1,0 +1,115 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Learn01</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope, $http) {
+
+				$scope.States = [];
+				$scope.Person = null;
+
+				$http.get("/LearningDirective/GetStates")
+					.error(function (response) {
+
+						alert("Error!");
+
+					})
+					.success(function (response) {
+
+						$scope.States = response;
+
+						$scope.Person =
+							{ FullName: "Ali Reza Alavi", HomeStateId: 1, WorkStateId: 2 };
+
+					});
+
+			});
+
+			varMainApplication.directive("statesCities", function () {
+
+				return ({
+
+					scope: {
+						states: "=",
+						selectedStateId: "=",
+					},
+					restrict: "A",
+					replace: false,
+					template: "<select data-ng-model='selectedState' data-ng-options='state.Name for state in states'></select>",
+					controller: function ($scope) {
+						$scope.selectedState = null;
+
+						$scope.$watch("selectedStateId", function () {
+
+							//alert($scope.selectedStateId);
+
+							for (var varIndex = 0; varIndex < $scope.states.length; varIndex++) {
+
+								var varCurrentState =
+									$scope.states[varIndex];
+
+								if (varCurrentState.Id == $scope.selectedStateId) {
+
+									$scope.selectedState = varCurrentState;
+
+								}
+
+							}
+
+						});
+
+						$scope.$watch("selectedState", function () {
+
+							$scope.selectedStateId = $scope.selectedState.Id;
+
+						});
+
+					},
+				});
+
+			});
+
+		}());
+
+	</script>
+</head>
+<body data-ng-controller="mainController">
+	<div>
+		Person:
+		<br />
+		Home State Id: {{ Person.HomeStateId }}
+		<br />
+		Work State Id: {{ Person.WorkStateId }}
+		<br />
+		<br />
+		Home:
+		<br />
+		<div data-states-cities data-states="States" data-selected-state-id="Person.HomeStateId"></div>
+		<br />
+		<br />
+		Work:
+		<br />
+		<div data-states-cities data-states="States" data-selected-state-id="Person.WorkStateId"></div>
+	</div>
+</body>
+</html>

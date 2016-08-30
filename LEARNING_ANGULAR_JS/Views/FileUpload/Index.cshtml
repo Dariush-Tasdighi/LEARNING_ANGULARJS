@@ -1,0 +1,105 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="myApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Index</title>
+
+	<script src="~/Scripts/angular.min.js"></script>
+	<script src="~/Scripts/ng-file-upload.min.js"></script>
+
+	<script>
+
+		var app = angular.module('myApplication', ['ngFileUpload']);
+
+		app.controller('myController', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+
+			$scope.uploadFiles = function (file) {
+
+				$scope.f = file;
+
+				if (file && !file.$error) {
+
+					file.upload = Upload.upload({
+
+						file: file,
+						fields: { 'NationalCode': $scope.NationalCode },
+						url: '/FileUpload/ManageUploadedFiles',
+
+					});
+
+					file.upload.then(function (response) {
+
+						$timeout(function () {
+
+							file.result = response.data;
+
+						});
+
+					}, function (response) {
+
+						if (response.status > 0) {
+
+							$scope.errorMsg = response.status + ': ' + response.data;
+
+						}
+					});
+
+					file.upload.progress(function (evt) {
+
+						file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+
+					});
+
+				}
+
+			};
+
+		}]);
+
+	</script>
+</head>
+<body data-ng-controller="myController">
+	<h4>
+		Upload on file select
+	</h4>
+
+	National Code
+	<input type="text" data-ng-model="NationalCode" />
+	<br />
+	<br />
+
+	select file
+	@*
+		<input type="file" ngf-select="uploadFiles($file)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB" />
+	*@>
+
+	<input type="file" ngf-select="uploadFiles($file)" />
+
+	@*
+		<input type="file" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB" />
+		<br />
+		<button type="button" data-ng-click="uploadFiles($file)">Do Upload</button>
+	*@
+
+	<br />
+	<br />
+
+	File:
+	<div>
+		{{ f.name }} {{ f.$error }} {{ f.$errorParam }}
+
+		<div class="progress" ng-show="f.progress >= 0">
+			<div style="width:{{ f.progress }}%" ng-bind="f.progress + '%'">
+			</div>
+		</div>
+	</div>
+
+	{{errorMsg}}
+</body>
+</html>

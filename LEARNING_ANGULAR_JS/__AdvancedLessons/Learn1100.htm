@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-controller="firstController">
+		Text 1: {{ text1 }}
+		<br />
+		Text 2: {{ text2 }}
+		<br />
+		<button type="button" data-ng-click="updateChild()">Update Child</button>
+
+		<hr />
+
+		<div data-ng-controller="secondController">
+			Text 1: {{ text1 }}
+			<br />
+			Text 2: {{ text2 }}
+		</div>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varFirstController =
+				function ($scope) {
+
+					$scope.text1 = 'Text (1)';
+
+					$scope.updateChild = function () {
+
+						//$scope.$broadcast('notifyChild', $scope.text1);
+						$scope.$broadcast('notifyChild', 'Message From Parent!');
+
+					};
+
+				};
+
+			varMainApplication.controller('firstController', varFirstController);
+
+			var varSecondController =
+				function ($scope) {
+
+					$scope.text2 = 'Text (2)';
+
+					$scope.$on('notifyChild', function (event, message) {
+
+						$scope.text2 = message;
+
+					});
+
+				};
+
+			varMainApplication.controller('secondController', varSecondController);
+
+		}());
+
+	</script>
+</body>
+</html>

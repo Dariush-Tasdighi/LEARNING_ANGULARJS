@@ -1,0 +1,23 @@
+﻿<div class="panel panel-primary">
+
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			{{ person.firstName }} {{ person.lastName }}
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		Age: {{ person.age }}
+
+		<div data-ng-show="!!person.address">
+			<h4>
+				Address
+			</h4>
+
+			City: {{ person.address.city }}
+			<br />
+			Street: {{ person.address.street }}
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	Display Array (1): <input type="checkbox" data-ng-model="displayArray1" />
+
+	<div data-ng-show="displayArray1">
+		<ul>
+			<li data-ng-repeat="item in array1">{{ item }}</li>
+		</ul>
+	</div>
+
+	<hr />
+
+	Display Array (2): <input type="checkbox" data-ng-model="displayArray2" />
+
+	<div data-ng-if="displayArray2">
+		<ul>
+			<li data-ng-repeat="item in array2">{{ item }}</li>
+		</ul>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.array1 =
+						[1, 2, 3, 4, 5, 6, 7, 8, 9, ];
+
+					$scope.array2 =
+						[1, 2, 3, 4, 5, 6, 7, 8, 9, ];
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

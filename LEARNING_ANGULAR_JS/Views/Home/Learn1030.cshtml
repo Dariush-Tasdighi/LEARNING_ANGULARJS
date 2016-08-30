@@ -1,0 +1,130 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title></title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button type="button" class="btn btn-primary" data-ng-click="getPeople()">Get People</button>
+			</div>
+		</div>
+
+		<div class="row" data-ng-show="!!People">
+			<hr />
+
+			<div class="col-sm-12 table-responsive">
+				<table class="table table-bordered table-condensed table-striped table-hover">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Age</th>
+						<th>Active</th>
+					</tr>
+
+					<tr data-ng-repeat="item in People">
+						<td>{{ $index + 1 }}</td>
+						<td>{{ item.FirstName }}</td>
+						<td>{{ item.LastName }}</td>
+						<td>{{ item.Age }}</td>
+						<td><input type="checkbox" data-ng-model="item.IsActive" disabled="disabled" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="../Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.People = null;
+
+					$scope.getPeople = function () {
+
+						$scope.People = null;
+
+						$("div#myLoadingModal").modal({ backdrop: false, keyboard: false, });
+
+						var varPromise =
+							$http.post('/Home/GetData1010');
+
+						var varOnSuccess =
+							function (response) {
+
+								$scope.People = response;
+
+								$("div#myLoadingModal").modal("toggle");
+
+							};
+
+						var varOnError =
+							function (response) {
+
+								$("div#myLoadingModal").modal("toggle");
+
+								alert("Error on sending and/or recieving data!");
+
+							};
+
+						varPromise.success(varOnSuccess).error(varOnError);
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">Loading...</h4>
+				</div>
+
+				<div class="modal-body">
+					<img src="~/Content/Images/Loading.gif" alt="Loading..." title="Loading..." />
+					Please Wait!
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

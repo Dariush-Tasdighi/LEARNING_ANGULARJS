@@ -1,0 +1,104 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Learn 100</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+
+		span.required {
+			color: red;
+			font-family: Tahoma;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module("mainApplication", []);
+
+		angular.module("mainApplication")
+
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.countries =
+					[
+						// نباید دستور ذیل را بنویسیم
+						//{ id: '', name: 'Select an item...', },
+						{ id: '1', name: 'Iran', },
+						{ id: '2', name: 'Iraq', },
+						{ id: '3', name: 'France', },
+						{ id: '4', name: 'Germany', },
+					];
+
+				$scope.selectedCountry = null;
+				//$scope.selectedCountry = $scope.countries[0];
+
+				$scope.login = function () {
+
+					alert("Submit Button Clicked!");
+
+				};
+
+			});
+
+	</script>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				Selected Country: {{ selectedCountry }}
+			</div>
+		</div>
+
+		<form id="mainForm" name="mainForm" novalidate data-ng-submit="login()">
+
+			<div class="form-horizontal">
+				<div class="row form-group">
+					<label class="control-label col-sm-3">
+						Country
+						<span class="required">*</span>
+					</label>
+					<div class='col-sm-9' data-ng-class="{'has-error': mainForm.country.$invalid && mainForm.country.$dirty}">
+						@*<select id="country" name="country" class="form-control" data-ng-model="selectedCountry" data-ng-options="item.name for item in countries track by item.id" data-ng-required></select>*@
+
+						<select id="country" name="country" class="form-control" data-ng-model="selectedCountry" data-ng-options="item.name for item in countries" required>
+							<option value="">Select An Item...</option>
+						</select>
+
+						<div data-ng-show="mainForm.country.$invalid && mainForm.country.$dirty">
+							<span class="help-block" data-ng-show="mainForm.country.$error.required">Country is required!</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+						<button type="reset" class="btn btn-default" data-ng-click="mainForm.$setPristine()">Reset</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</body>
+</html>

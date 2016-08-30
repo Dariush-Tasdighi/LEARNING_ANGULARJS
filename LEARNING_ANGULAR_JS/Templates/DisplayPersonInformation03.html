@@ -1,0 +1,29 @@
+﻿<div class="panel panel-primary">
+
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			{{ person.firstName }} {{ person.lastName }}
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		Age: {{ person.age }}
+		<br />
+		Vote Count: {{ person.voteCount }}
+
+		<div data-ng-show="!!person.address">
+			<h4>
+				Address
+			</h4>
+
+			City: {{ person.address.city }}
+			<br />
+			Street: {{ person.address.street }}
+		</div>
+	</div>
+
+	<div class="panel-footer" data-ng-show="!person.voted">
+		<button type="button" class="btn btn-success" data-ng-click="vote(person)">Vote</button>
+	</div>
+
+</div>

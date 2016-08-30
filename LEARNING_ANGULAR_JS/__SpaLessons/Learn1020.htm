@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+
+<!--Step (1)-->
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<!--Step (2)-->
+<body data-ng-controller="mainController">
+
+	<!--Step (3)-->
+	<a href="#/Home">Home</a>
+	|
+	<a href="#/view1">Display View (1)</a>
+	|
+	<a href="#/view2">Display View (2)</a>
+	|
+	<a href="#/View3">Display View (3) (Does not exist!)</a>
+	|
+	<a href="/Home/Index">Main Home</a>
+
+	<hr />
+
+	<!--Step (4)-->
+	<div data-ng-view></div>
+
+	<!--Step (5)-->
+	<script src="../Scripts/angular.min.js"></script>
+
+	<!--Step (6)-->
+	<script src="../Scripts/angular-route.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			//var varMainApplication =
+			//	angular.module("mainApplication", []);
+
+			//Step (7)
+			var varMainApplication =
+				angular.module("mainApplication", ["ngRoute"]);
+
+			//Step (8)
+			var varMainController =
+				function ($scope) {
+
+				};
+
+			//Step (9)
+			varMainApplication.controller("mainController", varMainController);
+
+			//Step (10)
+			var varMainRouteConfig =
+				function ($routeProvider) {
+
+					$routeProvider
+
+						.when("/Home", {
+
+							caseInsensitiveMatch: true,
+							templateUrl: "/Templates/Home.html",
+
+						})
+
+						.when("/View1", {
+
+							caseInsensitiveMatch: true,
+							controller: varMainController,
+							templateUrl: "/Templates/View1.html",
+
+						})
+
+						.when("/View2", {
+
+							//caseInsensitiveMatch: true,
+							controller: varMainController,
+							templateUrl: "/Templates/View2.html",
+
+						})
+
+						.otherwise({
+
+							redirectTo: "/Home",
+
+						});
+
+				};
+
+			// Solution (1)
+			//Step (11)
+			varMainApplication.config(varMainRouteConfig);
+			// /Solution (1)
+
+			// Solution (2)
+			//Step (11)
+			//varMainApplication.config(["$routeProvider", varMainRouteConfig]);
+			// /Solution (2)
+
+		}());
+
+	</script>
+</body>
+</html>

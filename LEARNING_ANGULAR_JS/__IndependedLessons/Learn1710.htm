@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	First Name
+	<br />
+	<input type="text" data-ng-model="firstName" />
+
+	<br />
+	<br />
+
+	Last Name
+	<br />
+	<input type="text" data-ng-model="lastName" />
+
+	<br />
+	<br />
+	Full Name: {{ fullName }}!
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.lastName = '';
+					$scope.firstName = '';
+
+					$scope.fullName = '';
+
+					$scope.getFullName = function () {
+
+						return (getFullName($scope));
+
+					};
+
+					$scope.$watch('firstName', function () {
+
+						$scope.fullName = getFullName($scope);
+
+					});
+
+					$scope.$watch('lastName', function () {
+
+						$scope.fullName = getFullName($scope);
+
+					});
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+		function getFullName($scope) {
+
+			return ($scope.firstName + ' ' + $scope.lastName);
+
+		}
+
+	</script>
+</body>
+</html>

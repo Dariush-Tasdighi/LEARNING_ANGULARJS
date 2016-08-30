@@ -1,0 +1,25 @@
+﻿// Updated on 1394/02/23
+
+INSTALL-PACKAGE Microsoft.AspNet.Mvc
+INSTALL-PACKAGE EntityFramework
+
+INSTALL-PACKAGE Newtonsoft.Json
+INSTALL-PACKAGE Microsoft.AspNet.Web.Optimization
+
+INSTALL-PACKAGE SqlServerCompact
+INSTALL-PACKAGE EntityFramework.SqlServerCompact
+
+INSTALL-PACKAGE JQuery
+
+INSTALL-PACKAGE Bootstrap
+
+INSTALL-PACKAGE AngularJS
+INSTALL-PACKAGE Angular.UI.Bootstrap
+
+INSTALL-PACKAGE Modernizr
+
+INSTALL-PACKAGE T4MVC
+INSTALL-PACKAGE AutoMapper
+
+Bootstrap (Right To Left)
+https://github.com/morteza/bootstrap-rtl

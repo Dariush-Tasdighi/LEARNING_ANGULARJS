@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-controller="firstController">
+		Text 1: <input type="text" data-ng-model="text1" />
+	</div>
+
+	<hr />
+
+	<div data-ng-controller="secondController">
+		Text 2: <input type="text" data-ng-model="text2" />
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			varMainApplication.factory('peopleService', function () {
+
+				var varPeople =
+					[
+						{ id: 1, fullName: 'Full Name (1)', },
+						{ id: 2, fullName: 'Full Name (2)', },
+						{ id: 3, fullName: 'Full Name (3)', },
+						{ id: 4, fullName: 'Full Name (4)', },
+						{ id: 5, fullName: 'Full Name (5)', },
+					];
+
+				return (varPeople);
+
+			});
+
+			var varFirstController =
+				function ($scope, peopleService) {
+
+					$scope.text1 = peopleService[1].fullName;
+
+				};
+
+			varMainApplication.controller('firstController', varFirstController);
+
+			var varSecondController =
+				function ($scope, peopleService) {
+
+					$scope.text2 = peopleService[1].fullName;
+
+				};
+
+			varMainApplication.controller('secondController', varSecondController);
+
+		}());
+
+	</script>
+</body>
+</html>

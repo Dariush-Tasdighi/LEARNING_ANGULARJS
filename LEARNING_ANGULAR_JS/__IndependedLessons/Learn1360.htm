@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+</head>
+<body>
+	<div data-ng-app="mainApplication">
+		<h3 data-ng-controller="mainController">
+			Welcome, {{ fullName }}!
+		</h3>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		var varMainApplication =
+			angular.module('mainApplication', []);
+
+		var varMainController =
+			function ($scope) {
+
+				$scope.fullName = 'Dariush Tasdighi';
+
+			};
+
+		varMainApplication.controller('mainController', varMainController);
+
+	</script>
+</body>
+</html>

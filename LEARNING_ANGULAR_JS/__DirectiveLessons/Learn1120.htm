@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div data-display-person-information></div>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.person =
+					{
+						id: 1,
+						age: 20,
+						firstName: "Sara",
+						lastName: "Alavi",
+
+						//address: null,
+
+						address: {
+							city: "Tehran",
+							street: "Sohrevardi",
+						},
+					};
+
+			});
+
+			varMainApplication.directive("displayPersonInformation", function () {
+
+				return ({
+
+					restrict: "A",
+					replace: true,
+					templateUrl: "/Templates/DisplayPersonInformation02.html",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div data-main-directive data-action="someFunction()"></div>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.someFunction = function () {
+
+					alert("Step (2)");
+
+				};
+
+			});
+
+			varMainApplication.directive("mainDirective", function () {
+
+				return ({
+
+					scope: {
+						action: "&",
+					},
+					restrict: "A",
+					replace: false,
+					template: "<button type='button' data-ng-click='internalAction()'>Click Me!</button>",
+					controller: function ($scope) {
+
+						$scope.internalAction = function () {
+
+							// کارهایی که در داخل همین ماژول می‌خواهیم انجام داده و سپس
+
+							alert("Step (1)");
+
+							$scope.action();
+
+						};
+
+					},
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+
+</html>

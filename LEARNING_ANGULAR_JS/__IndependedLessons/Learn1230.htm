@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app>
+<head>
+	<title></title>
+</head>
+<body>
+	Hide
+	<br />
+	<input type="checkbox" data-ng-model="hide" />
+
+	<h3 data-ng-hide="hide">
+		Hello World (1)!
+	</h3>
+
+	<h3 data-ng-hide="!hide">
+		Hello World (2)!
+	</h3>
+
+	<script src="../Scripts/angular.min.js"></script>
+</body>
+</html>

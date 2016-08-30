@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div data-display-user-information></div>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.person =
+					{
+						id: 1,
+						age: 20,
+
+						voted: false,
+						voteCount: 10,
+
+						firstName: "Sara",
+						lastName: "Alavi",
+
+						address: {
+							city: "Tehran",
+							street: "Sohrevardi",
+						},
+					};
+
+			});
+
+			varMainApplication.directive("displayUserInformation", function () {
+
+				return ({
+
+					restrict: "A",
+					replace: true,
+					templateUrl: "/Templates/DisplayPersonInformation03.html",
+
+					controller: function ($scope) {
+
+						$scope.vote = function (person) {
+
+							person.voteCount++;
+							person.voted = true;
+
+						};
+
+					},
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+
+</html>

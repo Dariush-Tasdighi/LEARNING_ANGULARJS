@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+			</th>
+			<th>
+				Full Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in people">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				<button type="button" data-ng-click="display(item)">Display</button>
+			</td>
+			<td>
+				{{ item.fullName }}
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.people =
+						[
+							{ id: 1, fullName: 'Sara Alavi', description: 'Nothing (1)', age: 20, },
+							{ id: 2, fullName: 'Ali Rezazadeh', description: 'Nothing (2)', age: 30, },
+							{ id: 3, fullName: 'Dariush Tasdighi', description: 'Nothing (3)', age: 40, },
+							{ id: 4, fullName: 'Seyed Ali Reza Alavi', description: 'Nothing (4)', age: 50, },
+						];
+
+					$scope.display = function (item) {
+
+						alert(item.fullName + '\n\r' + item.description);
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

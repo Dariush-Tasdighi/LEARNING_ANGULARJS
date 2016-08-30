@@ -1,0 +1,278 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title></title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button type="button" class="btn btn-primary" data-ng-click="displayCreateModal()">Create Person</button>
+			</div>
+		</div>
+
+		<div class="row" data-ng-show="!!People">
+			<hr />
+
+			<div class="col-sm-12 table-responsive">
+				<table class="table table-bordered table-condensed table-hover table-striped">
+					<tr>
+						<th>#</th>
+						<th></th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Age</th>
+						<th>Is Active</th>
+					</tr>
+
+					<tr data-ng-repeat="Person in People">
+						<td>{{ $index + 1 }}</td>
+						<td>
+							@*<button type="button" data-ng-click="displayPersonInformation(Person.Id)" class="btn btn-primary">Display</button>*@
+							<button type="button" data-ng-click="displayPersonInformation(Person)" class="btn btn-primary">Display</button>
+
+							@*<button type="button" data-ng-click="deletePerson(Person)" class="btn btn-danger">Delete</button>*@
+							<button type="button" data-ng-click="deletePerson(Person, $index)" class="btn btn-danger">Delete</button>
+						</td>
+						<td>{{ Person.FirstName }}</td>
+						<td>{{ Person.LastName }}</td>
+						<td>{{ Person.Age }}</td>
+						<td><input type="checkbox" data-ng-model="Person.IsActive" disabled="disabled" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="../Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.TheNewPerson = null;
+
+					// **************************************************
+					$scope.People = null;
+
+					$("div#myLoadingModal").modal({ backdrop: false, keyboard: false, });
+
+					$http.post('/Home/GetData1010').error(function (response) {
+
+						$("div#myLoadingModal").modal("toggle");
+
+						alert("Error on sending and/or recieving data!");
+
+					}).success(function (response) {
+
+						$scope.People = response;
+
+						$("div#myLoadingModal").modal("toggle");
+
+					});
+					// **************************************************
+
+					$scope.displayCreateModal = function () {
+
+						$scope.TheNewPerson = null;
+
+						$("div#myCreateModal").modal();
+
+					};
+
+					$scope.create = function () {
+
+						$("div#myLoadingModal").modal({ backdrop: false, keyboard: false, });
+
+						$http.post("/Home/SetData1010", $scope.TheNewPerson).error(function (response) {
+
+							$("div#myLoadingModal").modal("toggle");
+
+							alert("Error on sending and/or recieving data!");
+
+						}).success(function (response) {
+
+							$("div#myLoadingModal").modal("toggle");
+							$("div#myCreateModal").modal("toggle");
+
+							//$scope.People.push(response);
+							$scope.People.unshift(response);
+
+						});
+
+					};
+
+					$scope.displayPersonInformation = function (Person) {
+
+						var varResult =
+							Person.Id + "\n\r" + Person.FirstName + " " + Person.LastName;
+
+						alert(varResult);
+
+					};
+
+					$scope.deletePerson = function (Person, index) {
+
+						$("div#myLoadingModal").modal({ backdrop: false, keyboard: false, });
+
+						//$http.post('/Home/Delete1000', Person.Id).error(function (response) {
+
+						$http.post('/Home/Delete1000', { Id: Person.Id }).error(function (response) {
+
+							$("div#myLoadingModal").modal("toggle");
+
+							alert("Error on sending and/or recieving data!");
+
+						}).success(function (response) {
+
+							$("div#myLoadingModal").modal("toggle");
+
+							if (response) {
+
+								$scope.People.splice(index, 1);
+
+								//var varIndex = 0;
+								//var varFoundIndex = -1;
+
+								//var varPeopleCount = $scope.People.length;
+
+								//while (varIndex <= varPeopleCount - 1) {
+
+								//	var varPerson = $scope.People[varIndex];
+
+								//	if (varPerson.Id == Person.Id) {
+
+								//		varFoundIndex = varIndex;
+								//		break;
+
+								//	}
+
+								//	varIndex++;
+
+								//}
+
+								//if (varFoundIndex > -1) {
+
+								//	$scope.People.splice(varFoundIndex, 1);
+
+								//}
+
+							}
+							else {
+
+								alert("This person could not be deleted!");
+
+							}
+
+						});
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+
+	<div id="myCreateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myCreateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myCreateModalLabel">Create</h4>
+				</div>
+
+				<div class="modal-body form-horizontal">
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">First Name</label>
+						<div class="col-sm-9">
+							<input type="search" class="form-control" data-ng-model="TheNewPerson.FirstName" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">Last Name</label>
+						<div class="col-sm-9">
+							<input type="search" class="form-control" data-ng-model="TheNewPerson.LastName" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">Age</label>
+						<div class="col-sm-9">
+							<input type="search" class="form-control" data-ng-model="TheNewPerson.Age" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">Is Active</label>
+						<div class="col-sm-9">
+							<input type="checkbox" class="form-control" data-ng-model="TheNewPerson.IsActive" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<button type="button" class="btn btn-primary" data-ng-click="create()">Create</button>
+							<button type="reset" class="btn btn-default">Reset</button>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">Loading...</h4>
+				</div>
+
+				<div class="modal-body">
+					<img src="~/Content/Images/Loading.gif" alt="Loading..." title="Loading..." />
+					Please Wait!
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

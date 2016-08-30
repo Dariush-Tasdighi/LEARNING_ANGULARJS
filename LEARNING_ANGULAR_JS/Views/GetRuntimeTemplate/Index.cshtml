@@ -1,0 +1,68 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Index</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		body {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', [])
+			.controller('mainController', function ($scope, $http, $compile) {
+
+				$scope.fullName = 'Mr. Dariush Tasdighi';
+
+				$scope.doSomething = function () {
+
+					$http.post('/GetRuntimeTemplate/GetRuntimeTemplate')
+						.error(function (response) {
+
+							alert('Error: ' + response);
+
+						})
+						.success(function (response) {
+
+							// Note: Wrong Usage!
+							//$('div#divMain').html(response);
+
+							var varCompiledeHtml =
+								$compile(response)($scope);
+
+							$('div#divMain').html(varCompiledeHtml);
+
+						})
+					;
+
+				};
+
+			});
+
+	</script>
+</head>
+<body data-ng-controller="mainController">
+	<div class="container">
+		<button type="button" data-ng-click="doSomething()">Do Something</button>
+
+		<hr />
+
+		<div id="divMain">
+		</div>
+	</div>
+</body>
+</html>

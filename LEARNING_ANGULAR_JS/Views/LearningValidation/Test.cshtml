@@ -1,0 +1,84 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Test</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		body {
+			direction: rtl;
+			font-family: Tahoma;
+		}
+
+		div.container {
+			margin-top: 20px;
+		}
+
+		span.required {
+			color: red;
+			font-family: Tahoma;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication', [])
+			.controller('MTNCtrl', function ($scope) {
+
+
+
+			});
+
+	</script>
+</head>
+<body data-ng-controller="MTNCtrl">
+
+	<div class="container">
+
+		<form id="mainForm" name="mainForm" novalidate="novalidate" data-ng-submit="login()">
+
+			<div class="form-horizontal">
+
+				<div class='row form-group'>
+					<label class="control-label col-sm-3">
+						Some Property 2
+						<span style="color:red; font-family: Tahoma" data-ng-show="mainForm.SomeProperty2.$error.required">*</span>
+					</label>
+
+					<div class='col-sm-9' data-ng-class="{'has-error': mainForm.SomeProperty2.$invalid && mainForm.SomeProperty2.$dirty}">
+						<input type="text" name="SomeProperty2" class="form-control" data-ng-model="SomeProperty2" placeholder="SomeProperty2" required="required" data-ng-pattern="/^[0-9]{3,7}$/" />
+
+						<div data-ng-show="mainForm.SomeProperty2.$invalid && mainForm.SomeProperty2.$dirty">
+							<span class="help-block" data-ng-show="mainForm.SomeProperty2.$error.required">Required!</span>
+							<span class="help-block" data-ng-show="mainForm.SomeProperty2.$error.pattern">Not a valid number!</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row form-group">
+					<div class="col-sm-9 col-lg-offset-3">
+						<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+						<button type="reset" class="btn btn-default" data-ng-click="mainForm.$setPristine()">Reset</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</body>
+</html>

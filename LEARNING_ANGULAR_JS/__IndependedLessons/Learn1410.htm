@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+	<div data-ng-controller="mainController1">
+		<h3>
+			Full Name: {{ fullName }}
+			<br />
+			Company Name: {{ companyName }}
+			<br />
+			Some Field (1): {{ someField1 }}
+			<br />
+			Some Field (2): {{ someField2 }}
+		</h3>
+	</div>
+
+	<div data-ng-controller="mainController2">
+		<h3>
+			Full Name: {{ fullName }}
+			<br />
+			Company Name: {{ companyName }}
+			<br />
+			Some Field (1): {{ someField1 }}
+			<br />
+			Some Field (2): {{ someField2 }}
+		</h3>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+
+			.controller('mainController1', function ($scope, $rootScope) {
+
+				$scope.fullName = 'Dariush Tasdighi';
+				$rootScope.someField1 = 'Some Field Value (1)';
+
+			})
+
+			.controller('mainController2', function ($scope, $rootScope) {
+
+				$scope.companyName = 'Iran Khodro Co.';
+				$rootScope.someField2 = 'Some Field Value (2)';
+
+			})
+		;
+
+	</script>
+</body>
+</html>

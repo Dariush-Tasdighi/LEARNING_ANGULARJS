@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<div style="color: blue; background-color: khaki; border: thin solid; margin: 4px; padding: 4px;">
+		Age
+		<br />
+		<input type="text" data-ng-model="person.age" />
+		<br />
+		<br />
+		Full Name
+		<br />
+		<input type="text" data-ng-model="person.fullName" />
+	</div>
+
+	<div data-ng-include="'/Templates/Template02.html'"></div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.person =
+						{
+							age: 20,
+							fullName: "Ali Reza Alavi",
+						};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

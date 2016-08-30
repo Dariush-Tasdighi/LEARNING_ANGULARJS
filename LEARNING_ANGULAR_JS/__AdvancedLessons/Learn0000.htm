@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-app="mainApplication1">
+		<div data-ng-controller="mainController">
+			Full Name
+			<br />
+			<input type="text" data-ng-model="fullName" />
+			<br />
+			<br />
+			Your name is {{ fullName }}!
+		</div>
+	</div>
+
+	<hr />
+
+	<div data-ng-app="mainApplication2">
+		<div data-ng-controller="mainController">
+			Full Name
+			<br />
+			<input type="text" data-ng-model="fullName" />
+			<br />
+			<br />
+			Your name is {{ fullName }}!
+		</div>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication1', [])
+			.controller('mainController', function ($scope) {
+
+				$scope.fullName = 'Mr. Ali Reza Alavi';
+
+			})
+		;
+
+		angular.module('mainApplication2', [])
+			.controller('mainController', function ($scope) {
+
+				$scope.fullName = 'Mr. Dariush Tasdighi';
+
+			})
+		;
+
+	</script>
+</body>
+</html>

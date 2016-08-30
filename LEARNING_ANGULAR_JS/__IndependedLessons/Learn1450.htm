@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<ul>
+		<li data-ng-repeat="item in people">
+			({{ $index }}) -
+			I'm {{ item.fullName }}, and {{ item.age }} years old.
+		</li>
+	</ul>
+
+	<hr />
+
+	<ul>
+		<li data-ng-repeat="item in people">
+			({{ $index + 1 }}) -
+			I'm {{ item.fullName }}, and {{ item.age }} years old.
+		</li>
+	</ul>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.people =
+						[
+							{ fullName: 'Sara Alavi', age: 20, },
+							{ fullName: 'Ali Rezazadeh', age: 30, },
+							{ fullName: 'Dariush Tasdighi', age: 40, },
+							{ fullName: 'Seyed Ali Reza Alavi', age: 50, },
+						];
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

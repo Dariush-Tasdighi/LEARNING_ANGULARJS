@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	First Number
+	<br />
+	<input type="text" placeholder="firstNumber" data-ng-model="firstNumber" />
+
+	<br />
+	<br />
+
+	Second Number
+	<br />
+	<input type="text" placeholder="secondNumber" data-ng-model="secondNumber" />
+
+	<br />
+	<br />
+
+	First Number
+	<br />
+	{{ firstNumber }}
+
+	<br />
+	<br />
+
+	Second Number
+	<br />
+	{{ secondNumber }}
+
+	<br />
+	<br />
+
+	Sum (1)
+	<br />
+	{{ firstNumber + secondNumber }}
+
+	<br />
+	<br />
+
+	Sum (2)
+	<br />
+	{{ getSum1() }}
+
+	<br />
+	<br />
+
+	Sum (3)
+	<br />
+	{{ parseInt(firstNumber) + parseInt(secondNumber) }}
+
+	<br />
+	<br />
+
+	Sum (4)
+	<br />
+	{{ getSum2() }}
+
+	<br />
+	<br />
+
+	Sum (5)
+	<br />
+	{{ sum }}
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.sum = 0;
+					$scope.firstNumber = 0;
+					$scope.secondNumber = 0
+
+					$scope.getSum1 = function () {
+
+						return ($scope.firstNumber + $scope.secondNumber);
+
+					};
+
+					$scope.getSum2 = function () {
+
+						return (parseInt($scope.firstNumber) + parseInt($scope.secondNumber));
+
+					};
+
+					$scope.$watch('firstNumber', function () {
+
+						$scope.sum =
+							parseInt($scope.firstNumber) + parseInt($scope.secondNumber);
+
+					});
+
+					$scope.$watch('secondNumber', function () {
+
+						$scope.sum =
+							parseInt($scope.firstNumber) + parseInt($scope.secondNumber);
+
+					});
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

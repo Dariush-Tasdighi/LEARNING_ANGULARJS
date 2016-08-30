@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Name
+			</th>
+			<th>
+				Price
+			</th>
+			<th>
+				Count
+			</th>
+			<th>
+			</th>
+			<th>
+				Sub Total
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in items">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ item.name }}
+			</td>
+			<td>
+				{{ item.price }}
+			</td>
+			<td>
+				{{ item.count }}
+			</td>
+			<td>
+				<button type="button" data-ng-click="plus(item)">+</button>
+				<button type="button" data-ng-click="minus(item)">-</button>
+			</td>
+			<td>
+				{{ getSubTotal(item) }}
+				<!--{{ item.count * item.price }}-->
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="5">
+				Total
+			</td>
+			<td>
+				{{ getTotal() }}
+
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.items =
+						[
+							{ id: 1, name: 'Product (1)', price: 10, count: 1 },
+							{ id: 2, name: 'Product (2)', price: 20, count: 1 },
+							{ id: 3, name: 'Product (3)', price: 30, count: 1 },
+							{ id: 4, name: 'Product (4)', price: 40, count: 1 },
+							{ id: 5, name: 'Product (5)', price: 50, count: 1 },
+						];
+
+					$scope.plus = function (item) {
+
+						if (item.count < 10) {
+
+							item.count++;
+
+						}
+
+					};
+
+					$scope.minus = function (item) {
+
+						if (item.count > 0) {
+
+							item.count--;
+
+						}
+
+					};
+
+					$scope.getSubTotal = function (item) {
+
+						//return (item.count * item.price);
+
+						if (item.count < 5) {
+
+							return (item.count * item.price);
+
+						}
+						else {
+
+							return (item.count * item.price * (95 / 100));
+
+						}
+
+					};
+
+					$scope.getTotal = function () {
+
+						var varTotal = 0;
+
+						// Solution (1)
+						//for (var intIndex = 0; intIndex <= $scope.items.length - 1; intIndex++) {
+
+						//	varTotal +=
+						//		$scope.items[intIndex].price * $scope.items[intIndex].count;
+
+						//}
+						// /Solution (1)
+
+						// Solution (2)
+						//angular.forEach($scope.items, function (item, index) {
+
+						//	varTotal +=
+						//		item.price * item.count;
+
+						//});
+						// /Solution (2)
+
+						// Solution (3)
+						angular.forEach($scope.items, function (item, index) {
+
+							varTotal +=
+								$scope.getSubTotal(item);
+
+						});
+						// /Solution (3)
+
+						return (varTotal);
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

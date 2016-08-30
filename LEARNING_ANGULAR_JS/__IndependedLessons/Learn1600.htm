@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	Sort
+	<br />
+	<select data-ng-model="sort">
+		<option value="">Select An Item...</option>
+		<option value="age">Age (ASC)</option>
+		<option value="-age">Age (DES)</option>
+		<option value="fullName">Full Name (ASC)</option>
+		<option value="-fullName">Full Name (DES)</option>
+	</select>
+
+	<br />
+	<br />
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Odd
+			</th>
+			<th>
+				Even
+			</th>
+			<th>
+				Full Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in people | orderBy: sort">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ $odd }}
+			</td>
+			<td>
+				{{ $even }}
+			</td>
+			<td>
+				{{ item.fullName }}
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.sort = '';
+
+					$scope.people =
+						[
+							{ fullName: 'Sara Alavi', age: 40, },
+							{ fullName: 'Ali Rezazadeh', age: 30, },
+							{ fullName: 'Dariush Tasdighi', age: 20, },
+							{ fullName: 'Seyed Ali Reza Alavi', age: 50, },
+						];
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<a href="#/Home">Home</a>
+	|
+	<a href="#/View1">Display View (1)</a>
+	|
+	<a href="#/View2">Display View (2)</a>
+	|
+	<a href="#/View3">Display View (3) (Does not exist!)</a>
+	|
+	<a href="/Home/Index">Main Home</a>
+
+	<hr />
+
+	<div data-ng-view></div>
+
+	<script src="../Scripts/angular.min.js"></script>
+	<script src="../Scripts/angular-route.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', ['ngRoute']);
+
+		angular.module('mainApplication')
+
+			.controller('mainController', function ($scope) {
+
+
+
+			})
+
+			.controller('mainController1', function ($scope) {
+
+				$scope.person =
+					{
+						age: 20,
+						fullName: 'Ali Reza Alavi',
+					};
+
+			})
+
+			.controller('mainController2', function ($scope) {
+
+				$scope.person =
+					{
+						age: 30,
+						fullName: 'Sara Ahmadi',
+					};
+
+			})
+		;
+
+		angular.module('mainApplication')
+
+			.config(function ($routeProvider) {
+
+				$routeProvider.
+					when('/Home', {
+
+						templateUrl: '/Templates/Home.html',
+
+					})
+
+					.when('/View1', {
+
+						controller: 'mainController1',
+						templateUrl: '/Templates/View1.html',
+
+					})
+
+					.when('/View2', {
+
+						controller: 'mainController2',
+						templateUrl: '/Templates/View2.html',
+
+					})
+
+					.otherwise({
+
+						redirectTo: '/Home',
+
+					});
+
+			});
+
+	</script>
+</body>
+</html>

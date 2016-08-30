@@ -1,0 +1,204 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Learn1000</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+
+		span.required {
+			color: red;
+			font-family: Tahoma;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+		(function () {
+
+			angular.module("dtxLibrary", []).directive('ngCompare', function () {
+
+				return ({
+
+					restrict: 'A',
+					require: 'ngModel',
+
+					link: function (scope, element, attributes, control) {
+
+						validate = function (scope, element, attributes, control) {
+
+							if ((scope[attributes.ngModel] == null) || (scope[attributes.ngModel] == "")) {
+
+								control.$setValidity("compare", true);
+
+							}
+							else {
+
+								if (scope[attributes.ngModel] == scope[attributes.ngCompare]) {
+
+									control.$setValidity("compare", true);
+
+								}
+								else {
+
+									control.$setValidity("compare", false);
+
+								}
+
+							}
+
+						};
+
+						scope.$watch(attributes.ngModel, function () {
+
+							validate(scope, element, attributes, control);
+
+						});
+
+						scope.$watch(attributes.ngCompare, function () {
+
+							validate(scope, element, attributes, control);
+
+						});
+
+					},
+
+				})
+
+			});
+
+			var varMainApplication =
+				angular.module("mainApplication", ["dtxLibrary"]);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.Username = "DariushT";
+					$scope.EmailAddress = "DariushT@GMail.com";
+
+					//$scope.User =
+					//	{ Username: "DariushT", EmailAddress: "DariushT@GMail.com" };
+
+					$scope.login = function () {
+
+
+
+					};
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</head>
+<body>
+	<div class="container">
+
+		<div data-ng-app="mainApplication" data-ng-controller="mainController">
+
+			<form id="mainForm" name="mainForm" novalidate data-ng-submit="login()">
+
+				<div class="form-horizontal">
+
+					<div class='row form-group'>
+						<label for="Username" class="control-label col-sm-3">
+							Username
+							<span class="required">*</span>
+						</label>
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Username.$invalid && mainForm.Username.$dirty}">
+							<input type="text" id="Username" name="Username" class="form-control" data-ng-model="Username" placeholder="Username" required />
+
+							<div data-ng-show="mainForm.Username.$invalid && mainForm.Username.$dirty">
+								<span class="help-block" data-ng-show="mainForm.Username.$error.required">Required!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label for="Password" class="control-label col-sm-3">
+							Password
+							<span class="required">*</span>
+						</label>
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Password.$invalid && mainForm.Password.$dirty}">
+							<input type="password" id="Password" name="Password" class="form-control" data-ng-model="Password" placeholder="Password" required />
+
+							<div data-ng-show="mainForm.Password.$invalid && mainForm.Password.$dirty">
+								<span class="help-block" data-ng-show="mainForm.Password.$error.required">Required!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label for="ConfirmPassword" class="control-label col-sm-3">
+							Confirm Password
+							<span class="required">*</span>
+						</label>
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.ConfirmPassword.$invalid && mainForm.ConfirmPassword.$dirty}">
+							<input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" data-ng-model="ConfirmPassword" placeholder="Confirm Password" required data-ng-compare="Password" />
+
+							<div data-ng-show="mainForm.ConfirmPassword.$invalid && mainForm.ConfirmPassword.$dirty">
+								<span class="help-block" data-ng-show="mainForm.ConfirmPassword.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.ConfirmPassword.$error.compare">Confirm Password is not equal to Password!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label for="EmailAddress" class="control-label col-sm-3">
+							Email Address
+							<span class="required">*</span>
+						</label>
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.EmailAddress.$invalid && mainForm.EmailAddress.$dirty}">
+							<input type="email" id="EmailAddress" name="EmailAddress" class="form-control" data-ng-model="EmailAddress" placeholder="EmailAddress" required />
+
+							<div data-ng-show="mainForm.EmailAddress.$invalid && mainForm.EmailAddress.$dirty">
+								<span class="help-block" data-ng-show="mainForm.EmailAddress.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.EmailAddress.$error.email">Not a valid Email Address!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class='row form-group'>
+						<label for="ConfirmEmailAddress" class="control-label col-sm-3">
+							Confirm Email Address
+							<span class="required">*</span>
+						</label>
+						<div class='col-sm-9' data-ng-class="{'has-error': mainForm.ConfirmEmailAddress.$invalid && mainForm.ConfirmEmailAddress.$dirty}">
+							<input type="text" id="ConfirmEmailAddress" name="ConfirmEmailAddress" class="form-control" data-ng-model="ConfirmEmailAddress" placeholder="Confirm Email Address" required data-ng-compare="EmailAddress" />
+
+							<div data-ng-show="mainForm.ConfirmEmailAddress.$invalid && mainForm.ConfirmEmailAddress.$dirty">
+								<span class="help-block" data-ng-show="mainForm.ConfirmEmailAddress.$error.required">Required!</span>
+								<span class="help-block" data-ng-show="mainForm.ConfirmEmailAddress.$error.compare">Confirm Email Address is not equal to Email Address!</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-sm-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+							<button type="reset" class="btn btn-default" data-ng-click="mainForm.$setPristine()">Reset</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>

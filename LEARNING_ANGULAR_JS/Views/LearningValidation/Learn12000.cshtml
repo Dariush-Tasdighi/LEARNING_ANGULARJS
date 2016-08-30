@@ -1,0 +1,133 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Learn1000</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+
+		span.required {
+			color: red;
+			font-family: Tahoma;
+		}
+	</style>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+		(function () {
+
+			angular.module("dtxLibrary", []).directive('ngCompare', function () {
+
+				return ({
+
+					restrict: 'A',
+					require: 'ngModel',
+
+					link: function (scope, element, attributes, control) {
+
+						validate = function (scope, element, attributes, control) {
+
+							if ((scope[attributes.ngModel] == null) || (scope[attributes.ngModel] == "")) {
+
+								control.$setValidity("compare", true);
+
+							}
+							else {
+
+								if (scope[attributes.ngModel] == scope[attributes.ngCompare]) {
+
+									control.$setValidity("compare", true);
+
+								}
+								else {
+
+									control.$setValidity("compare", false);
+
+								}
+
+							}
+
+						};
+
+						scope.$watch(attributes.ngModel, function () {
+
+							validate(scope, element, attributes, control);
+
+						});
+
+						scope.$watch(attributes.ngCompare, function () {
+
+							validate(scope, element, attributes, control);
+
+						});
+
+					},
+
+				})
+
+			});
+
+			var varMainApplication =
+				angular.module("mainApplication", ["dtxLibrary"]);
+
+			var varMainController =
+				function ($scope, $http) {
+
+					//$scope.Username = "DariushT";
+					//$scope.EmailAddress = "DariushT@GMail.com";
+
+					//$scope.User =
+					//	{ Username: "DariushT", EmailAddress: "DariushT@GMail.com" };
+
+				};
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+</head>
+<body data-ng-controller="mainController">
+	<div class="container">
+		<form name="mainForm" action="~/LearningValidation/Learn1200" method="post" novalidate="novalidate">
+			<div class="form-horizontal">
+
+				<div class='row form-group'>
+					<label for="Username" class="control-label col-sm-3">
+						Username
+						<span class="required">*</span>
+					</label>
+					<div class='col-sm-9' data-ng-class="{'has-error': mainForm.Username.$invalid && mainForm.Username.$dirty}">
+						<input type="text" name="Username" class="form-control" data-ng-model="Username" placeholder="Username" required="required" />
+
+						<div data-ng-show="mainForm.Username.$invalid && mainForm.Username.$dirty">
+							<span class="help-block" data-ng-show="mainForm.Username.$error.required">Username is required!</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row form-group">
+					<div class="col-sm-9 col-lg-offset-3">
+						<button type="submit" class="btn btn-primary" data-ng-disabled="mainForm.$invalid">Login</button>
+						<button type="reset" class="btn btn-default" data-ng-click="mainForm.$setPristine()">Reset</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

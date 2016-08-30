@@ -1,0 +1,122 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="myApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Index</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="myController">
+	<div class="container">
+
+		<button type="button" data-ng-click="getAndDisplayPerson()">Get And Display Person</button>
+
+		<hr />
+
+		<div class="panel panel-primary" data-ng-show="!!Person">
+			<div class="panel-heading">
+				<h4 class="panel-title">{{ Person.FirstName }} {{ Person.LastName }}</h4>
+			</div>
+
+			<div class="panel-body">
+				Age: {{ Person.Age }}
+				<br />
+				Active: {{ Person.IsActive }}
+			</div>
+		</div>
+	</div>
+
+	@*
+		<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	*@
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">Loading...</h4>
+				</div>
+
+				<div class="modal-body">
+					<img src="~/Content/Images/Loading.gif" alt="Loading..." title="Loading..." />
+					Please Wait!
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module("myApplication", [])
+			.controller("myController", function ($scope, $http) {
+
+				$scope.Person = null;
+
+				$scope.getAndDisplayPerson = function () {
+
+					//$('div#myLoadingModal').modal();
+
+					$('div#myLoadingModal').modal({ backdrop: false, keyboard: false, });
+
+					$scope.Person = null;
+
+					$http.get("/Iwpco/GetPerson")
+						.error(function (response) {
+
+							$('div#myLoadingModal').modal('toggle');
+
+							alert('Error on sending or recieving data!');
+
+						})
+						.success(function (response) {
+
+							$scope.Person = response;
+
+							$('div#myLoadingModal').modal('toggle');
+
+						})
+					;
+
+				};
+
+			})
+		;
+
+	</script>
+</body>
+</html>

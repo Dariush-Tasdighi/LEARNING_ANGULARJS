@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div data-ng-controller="firstController">
+		Text 1: {{ text1 }}
+		<br />
+		Text 2: {{ text2 }}
+
+		<hr />
+
+		<div data-ng-controller="secondController">
+			Text 1: {{ text1 }}
+			<br />
+			Text 2: {{ text2 }}
+			<br />
+			<button type="button" data-ng-click="updateContainer()">Update Container</button>
+		</div>
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varFirstController =
+				function ($scope) {
+
+					$scope.text1 = 'Text (1)';
+
+					$scope.$on('notifyContainer', function (event, message) {
+
+						$scope.text1 = message;
+
+					});
+
+				};
+
+			varMainApplication.controller('firstController', varFirstController);
+
+			var varSecondController =
+				function ($scope) {
+
+					$scope.text2 = 'Text (2)';
+
+					$scope.updateContainer = function () {
+
+						//$scope.$emit('notifyContainer', $scope.text2);
+						$scope.$emit('notifyContainer', 'Message From Child!');
+
+					};
+
+				};
+
+			varMainApplication.controller('secondController', varSecondController);
+
+		}());
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title></title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button class="btn btn-primary" data-ng-click="displayCreateModal()">Create Person</button>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="../Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainController =
+				function ($scope, $http) {
+
+					$scope.People = null;
+
+					$scope.displayCreateModal = function () {
+
+						$("div#myCreateModal").modal();
+
+					};
+
+				};
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", varMainController);
+
+		}());
+
+	</script>
+
+	<div id="myCreateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myCreateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myCreateModalLabel">Create Person</h4>
+				</div>
+
+				<div class="modal-body form-horizontal">
+					<div class="row form-group">
+						<label class="control-label col-sm-3">First Name</label>
+						<div class="col-sm-9">
+							<input type="search" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">Last Name</label>
+						<div class="col-sm-9">
+							<input type="search" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">Age</label>
+						<div class="col-sm-9">
+							<input type="search" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="control-label col-sm-3">Active</label>
+						<div class="col-sm-9">
+							<input type="checkbox" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<button type="button" class="btn btn-primary">Create</button>
+							<button type="reset" class="btn btn-default">Reset</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">Loading...</h4>
+				</div>
+
+				<div class="modal-body">
+					<img src="~/Content/Images/Loading.gif" alt="Loading..." title="Loading..." />
+					Please Wait!
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

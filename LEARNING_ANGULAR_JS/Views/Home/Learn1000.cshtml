@@ -1,0 +1,62 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title></title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		body {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+		<h3>
+			{{ welcome }}
+		</h3>
+	</div>
+
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		//(function () {
+
+		//	var varMainApplication =
+		//		angular.module('mainApplication', []);
+
+		//	var varMainController =
+		//		function ($scope) {
+
+		//			$scope.welcome = 'Hello World!';
+
+		//		};
+
+		//	varMainApplication.controller('mainController', varMainController);
+
+		//}());
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+			.controller('mainController', function ($scope) {
+
+				$scope.welcome = 'Hello World!';
+
+			});
+
+	</script>
+
+</body>
+</html>

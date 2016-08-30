@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<div data-main-directive data-some-action="someFunction()"></div>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.someFunction = function () {
+
+					alert("Hello World!");
+
+				};
+
+			});
+
+			varMainApplication.directive("mainDirective", function () {
+
+				return ({
+
+					scope: {
+						action: "&someAction",
+					},
+					restrict: "A",
+					replace: false,
+					template: "<button type='button' data-ng-click='action()'>Click Me!</button>",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+
+</html>

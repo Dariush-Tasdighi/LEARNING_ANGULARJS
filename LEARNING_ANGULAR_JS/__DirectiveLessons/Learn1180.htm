@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<div class="container">
+
+		<input type="text" data-ng-model="fullName" />
+
+		<br />
+		<br />
+
+		<div data-main-directive data-name="fullName"></div>
+
+	</div>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module("mainApplication", []);
+
+			varMainApplication.controller("mainController", function ($scope) {
+
+				$scope.fullName = "Mr. Dariush Tasdighi";
+
+			});
+
+			varMainApplication.directive("mainDirective", function () {
+
+				return ({
+
+					scope: {
+						name: "=",
+					},
+					restrict: "A",
+					replace: false,
+					template: "<input type='text' data-ng-model='name' />",
+
+				});
+
+			});
+
+		}());
+
+	</script>
+</body>
+
+</html>

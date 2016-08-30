@@ -1,0 +1,62 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="myApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Index</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body data-ng-controller="myController">
+	<div class="container">
+
+		<button type="button" data-ng-click="getAndDisplayPerson()">Get And Display Person</button>
+
+		<hr />
+
+		<div class="panel panel-primary" data-ng-show="!!Person">
+			<div class="panel-heading">
+				<h4 class="panel-title">{{ Person.FirstName }} {{ Person.LastName }}</h4>
+			</div>
+
+			<div class="panel-body">
+				Age: {{ Person.Age }}
+				<br />
+				Active: {{ Person.IsActive }}
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module("myApplication", [])
+			.controller("myController", function ($scope) {
+
+				$scope.Person = null;
+
+				$scope.getAndDisplayPerson = function () {
+
+					alert("Hello World!");
+
+				};
+
+			})
+		;
+
+	</script>
+</body>
+</html>

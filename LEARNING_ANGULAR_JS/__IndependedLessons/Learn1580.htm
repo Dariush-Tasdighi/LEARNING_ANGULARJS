@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+</head>
+<body data-ng-controller="mainController">
+
+	<fieldset>
+		<legend>
+			Search
+		</legend>
+
+		First Name / Last Name
+		<br />
+		<input type="search" data-ng-model="search" />
+	</fieldset>
+
+	<br />
+	<br />
+
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Odd
+			</th>
+			<th>
+				Even
+			</th>
+			<th>
+				First Name
+			</th>
+			<th>
+				Last Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
+
+		<tr data-ng-repeat="item in people | filter: filterFunction">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ $odd }}
+			</td>
+			<td>
+				{{ $even }}
+			</td>
+			<td>
+				{{ item.firstName }}
+			</td>
+			<td>
+				{{ item.lastName }}
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.people =
+						[
+							{ firstName: 'Sara', lastName: 'Ahmadi', age: 20, },
+							{ firstName: 'Sanaz', lastName: 'Rezazadeh', age: 30, },
+							{ firstName: 'Dariush', lastName: 'Tasdighi', age: 40, },
+							{ firstName: 'Seyed Ali Reza', lastName: 'Alavi', age: 50, },
+						];
+
+					$scope.filterFunction = function (passeditem) {
+
+						if (($scope.search == null) ||
+							($scope.search == '')) {
+
+							return (true);
+
+						}
+						else {
+
+							if ((passeditem.lastName.toUpperCase().match($scope.search.toUpperCase())) ||
+								(passeditem.firstName.toUpperCase().match($scope.search.toUpperCase()))) {
+
+								return (true);
+
+							}
+							else {
+
+								return (false);
+
+							}
+
+						}
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		}());
+
+	</script>
+</body>
+</html>

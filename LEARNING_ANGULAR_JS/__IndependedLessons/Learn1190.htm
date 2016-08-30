@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app>
+<head>
+	<title></title>
+</head>
+<body data-ng-init="fullName = 'Ali Reza Alavi';age=10">
+	<h3>
+		I'm {{ fullName }} and {{ age }} years old.
+	</h3>
+
+	Full Name
+	<br />
+	<input type="text" data-ng-model="fullName" />
+
+	<br />
+	<br />
+
+	Age
+	<br />
+	<input type="text" data-ng-model="age" />
+
+	<script src="../Scripts/angular.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="myApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>List</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+	<style>
+		div.container {
+			margin-top: 20px;
+		}
+
+		table.data tr.commands {
+			background-color: #ddd;
+		}
+	</style>
+</head>
+<body data-ng-controller="myController">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button type="button" class="btn btn-primary btn-xs" data-ng-click="openCreatingModal()">Create</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12 table-responsive">
+				<table class="table table-bordered table-condensed table-striped table-hover data">
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							First Name
+						</th>
+						<th>
+							Last Name
+						</th>
+						<th>
+							Active
+						</th>
+						<th>
+							Age
+						</th>
+					</tr>
+
+					<tr data-ng-repeat="item in People">
+						<td>
+							{{ Paging.PageSize * Paging.PageIndex + $index + 1 }}
+						</td>
+						<td>
+							{{ item.FirstName }}
+						</td>
+						<td>
+							{{ item.LastName }}
+						</td>
+						<td>
+							<input type="checkbox" disabled="disabled" data-ng-model="item.IsActive" />
+						</td>
+						<td>
+							{{ item.Age }}
+						</td>
+					</tr>
+
+					<tr class="commands">
+						<td colspan="5">
+							<select data-ng-model="Paging.PageSize" data-ng-options="current for current in Paging.PageSizes"></select>
+							<button type="button" class="btn btn-primary btn-xs" data-ng-click="gotoFirstPage()" data-ng-disabled="Paging.PageIndex == 0">First Page</button>
+							<button type="button" class="btn btn-primary btn-xs" data-ng-click="gotoPreviousPage()" data-ng-disabled="Paging.PageIndex == 0">Previous Page</button>
+							<button type="button" class="btn btn-primary btn-xs" data-ng-click="gotoNextPage()" data-ng-disabled="Paging.PageIndex == Paging.PageCount() - 1">Next Page</button>
+							<button type="button" class="btn btn-primary btn-xs" data-ng-click="gotoLastPage()" data-ng-disabled="Paging.PageIndex == Paging.PageCount() - 1">Last Page</button>
+							<button type="button" class="btn btn-default btn-xs" data-ng-disabled="true">Records: {{ Paging.Total }}</button>
+							<button type="button" class="btn btn-default btn-xs" data-ng-disabled="true">Page {{ Paging.PageIndex + 1 }} : {{ Paging.PageCount() }}</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" style="z-index:10000" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">Loading...</h4>
+				</div>
+
+				<div class="modal-body">
+					<img src="~/Content/Images/Loading.gif" alt="Loading..." title="Loading..." />
+					Please Wait!
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="myCreatingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myCreatingModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myCreatingModalLabel">Create</h4>
+				</div>
+				<div class="modal-body form-horizontal">
+
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">First Name</label>
+						<div class="col-sm-9">
+							<input type="search" data-ng-model="NewPerson.FirstName" class="form-control" placeholder="" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Last Name</label>
+						<div class="col-sm-9">
+							<input type="search" data-ng-model="NewPerson.LastName" class="form-control" placeholder="" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Age</label>
+						<div class="col-sm-9">
+							<input type="search" data-ng-model="NewPerson.Age" class="form-control" placeholder="" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Active</label>
+						<div class="col-sm-9">
+							<input type="checkbox" data-ng-model="NewPerson.IsActive" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<button type="button" class="btn btn-primary" data-ng-click="create()">Create</button>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.0.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module("myApplication", [])
+			.controller("myController", function ($scope, $http) {
+
+				$scope.People = null;
+
+				$scope.NewPerson = null;
+
+				$scope.Paging =
+					{
+						Total: 0,
+						PageIndex: 0,
+						PageSize: 10,
+						PageSizes: [5, 10, 20, 50, 100],
+						PageCount: function () {
+
+							return (parseInt(this.Total / this.PageSize + 0.9));
+
+						},
+					};
+
+				$scope.gotoFirstPage = function () {
+
+					$scope.Paging.PageIndex = 0;
+
+					getData($scope, $http);
+
+				};
+
+				$scope.gotoPreviousPage = function () {
+
+					$scope.Paging.PageIndex--;
+
+					getData($scope, $http);
+
+				};
+
+				$scope.gotoNextPage = function () {
+
+					$scope.Paging.PageIndex++;
+
+					getData($scope, $http);
+
+				};
+
+				$scope.gotoLastPage = function () {
+
+					$scope.Paging.PageIndex =
+						$scope.Paging.PageCount() - 1;
+
+					getData($scope, $http);
+
+				};
+
+				$scope.$watch("Paging.PageSize", function () {
+
+					$scope.Paging.PageIndex = 0;
+
+					getData($scope, $http);
+
+				});
+
+				$scope.openCreatingModal = function () {
+
+					$('div#myCreatingModal').modal();
+
+				};
+
+				$scope.create = function () {
+
+					$('div#myLoadingModal').modal({ backdrop: false, keyboard: false, });
+
+					$http.post("/Iwpco/CreatePerson", $scope.NewPerson)
+						.error(function (response) {
+
+							$('div#myLoadingModal').modal('toggle');
+
+							alert('Error on sending or recieving data!');
+
+						})
+						.success(function (response) {
+
+							$scope.NewPerson = null;
+
+							$('div#myLoadingModal').modal('toggle');
+							$('div#myCreatingModal').modal('toggle');
+
+							$scope.Paging.PageIndex = 0;
+
+							getData($scope, $http);
+
+						})
+					;
+
+				};
+
+			})
+		;
+
+		function getData($scope, $http) {
+
+			$('div#myLoadingModal').modal({ backdrop: false, keyboard: false, });
+
+			$http.post("/Iwpco/GetPeople", $scope.Paging)
+				.error(function (response) {
+
+					$('div#myLoadingModal').modal('toggle');
+
+					alert('Error on sending or recieving data!');
+
+				})
+				.success(function (response) {
+
+					$scope.People = response.Data;
+					$scope.Paging.Total = response.Total;
+
+					$('div#myLoadingModal').modal('toggle');
+
+				})
+			;
+
+		}
+
+	</script>
+</body>
+</html>
