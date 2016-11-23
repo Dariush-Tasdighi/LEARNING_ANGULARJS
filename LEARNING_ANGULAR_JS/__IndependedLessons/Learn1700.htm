@@ -19,7 +19,7 @@
 
 	<br />
 	<br />
-	Full Name: {{ firstName + ' '  + lastName }}!
+	Full Name: {{ firstName + ' ' + lastName }}!
 
 	<br />
 	<br />
@@ -54,13 +54,15 @@
 
 					$scope.$watch('firstName', function () {
 
-						$scope.fullName = $scope.getFullName();
+						$scope.fullName =
+							($scope.firstName + ' ' + $scope.lastName);
 
 					});
 
 					$scope.$watch('lastName', function () {
 
-						$scope.fullName = $scope.getFullName();
+						$scope.fullName =
+							($scope.firstName + ' ' + $scope.lastName);
 
 					});
 
@@ -71,5 +73,6 @@
 		})();
 
 	</script>
+
 </body>
 </html>

@@ -6,28 +6,65 @@
 </head>
 <body data-ng-controller="mainController">
 
-	First Name
+	First Number
 	<br />
-	<input type="text" data-ng-model="firstName" />
+	<input type="text" placeholder="firstNumber" data-ng-model="firstNumber" />
 
 	<br />
 	<br />
 
-	Last Name
+	Second Number
 	<br />
-	<input type="text" data-ng-model="lastName" />
+	<input type="text" placeholder="secondNumber" data-ng-model="secondNumber" />
 
 	<br />
 	<br />
-	Full Name: {{ firstName + ' ' + lastName }}!
+
+	First Number
+	<br />
+	{{ firstNumber }}
 
 	<br />
 	<br />
-	Full Name: {{ getFullName() }}!
+
+	Second Number
+	<br />
+	{{ secondNumber }}
 
 	<br />
 	<br />
-	Full Name: {{ fullName }}!
+
+	Sum (1)
+	<br />
+	{{ firstNumber + secondNumber }}
+
+	<br />
+	<br />
+
+	Sum (2)
+	<br />
+	{{ getSum1() }}
+
+	<br />
+	<br />
+
+	Sum (3)
+	<br />
+	{{ parseInt(firstNumber) + parseInt(secondNumber) }}
+
+	<br />
+	<br />
+
+	Sum (4)
+	<br />
+	{{ getSum2() }}
+
+	<br />
+	<br />
+
+	Sum (5)
+	<br />
+	{{ sum }}
 
 	<script src="../Scripts/angular.min.js"></script>
 
@@ -41,28 +78,33 @@
 			var varMainController =
 				function ($scope) {
 
-					$scope.lastName = '';
-					$scope.firstName = '';
+					$scope.sum = 0;
+					$scope.firstNumber = 0;
+					$scope.secondNumber = 0
 
-					$scope.fullName = '';
+					$scope.getSum1 = function () {
 
-					$scope.getFullName = function () {
-
-						return ($scope.firstName + ' ' + $scope.lastName);
+						return ($scope.firstNumber + $scope.secondNumber);
 
 					};
 
-					$scope.$watch('firstName', function () {
+					$scope.getSum2 = function () {
 
-						$scope.fullName =
-							($scope.firstName + ' ' + $scope.lastName);
+						return (parseInt($scope.firstNumber) + parseInt($scope.secondNumber));
+
+					};
+
+					$scope.$watch('firstNumber', function () {
+
+						$scope.sum =
+							parseInt($scope.firstNumber) + parseInt($scope.secondNumber);
 
 					});
 
-					$scope.$watch('lastName', function () {
+					$scope.$watch('secondNumber', function () {
 
-						$scope.fullName =
-							($scope.firstName + ' ' + $scope.lastName);
+						$scope.sum =
+							parseInt($scope.firstNumber) + parseInt($scope.secondNumber);
 
 					});
 
@@ -73,6 +115,5 @@
 		})();
 
 	</script>
-
 </body>
 </html>

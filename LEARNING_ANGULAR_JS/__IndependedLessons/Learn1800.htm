@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
+<head>
+	<title></title>
+
+	<style>
+		.valid {
+			color: black;
+			background-color: lightgreen;
+		}
+
+		.notValid {
+			color: black;
+			background-color: lightcoral;
+		}
+	</style>
+</head>
+<body data-ng-controller="mainController">
+
+	<input type="number" data-ng-model="salary" data-ng-class="getSalaryClassName()" />
+
+	<script src="../Scripts/angular.min.js"></script>
+
+	<script>
+
+		(function () {
+
+			var varMainApplication =
+				angular.module('mainApplication', []);
+
+			var varMainController =
+				function ($scope) {
+
+					$scope.getSalaryClassName = function () {
+
+						//if ($scope.salary <= 10000000) {
+
+						//	return ('valid');
+
+						//}
+						//else {
+
+						//	return ('notValid');
+
+						//}
+
+						if ($scope.salary > 10000000) {
+
+							return ('notValid');
+
+						}
+						else {
+
+							return ('valid');
+
+						}
+
+					};
+
+				};
+
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
+
+	</script>
+</body>
+</html>

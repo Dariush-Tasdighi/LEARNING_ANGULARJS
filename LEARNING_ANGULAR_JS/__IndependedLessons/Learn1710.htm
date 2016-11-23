@@ -8,14 +8,18 @@
 
 	First Name
 	<br />
-	<input type="text" data-ng-model="firstName" />
+	<input type="text" data-ng-model="firstName" data-ng-change="updateFullName()" />
 
 	<br />
 	<br />
 
 	Last Name
 	<br />
-	<input type="text" data-ng-model="lastName" />
+	<input type="text" data-ng-model="lastName" data-ng-change="updateFullName()" />
+
+	<br />
+	<br />
+	Full Name: {{ firstName + ' ' + lastName }}!
 
 	<br />
 	<br />
@@ -38,23 +42,12 @@
 
 					$scope.fullName = '';
 
-					$scope.getFullName = function () {
+					$scope.updateFullName = function () {
 
-						return (getFullName($scope));
+						$scope.fullName =
+							($scope.firstName + ' ' + $scope.lastName);
 
 					};
-
-					$scope.$watch('firstName', function () {
-
-						$scope.fullName = getFullName($scope);
-
-					});
-
-					$scope.$watch('lastName', function () {
-
-						$scope.fullName = getFullName($scope);
-
-					});
 
 				};
 
@@ -62,12 +55,7 @@
 
 		})();
 
-		function getFullName($scope) {
-
-			return ($scope.firstName + ' ' + $scope.lastName);
-
-		}
-
 	</script>
+
 </body>
 </html>
