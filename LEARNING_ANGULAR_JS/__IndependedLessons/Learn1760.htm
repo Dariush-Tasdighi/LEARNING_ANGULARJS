@@ -10,10 +10,13 @@
 
 	<br />
 	<br />
+	<input type="text" data-ng-model="selectedItem.name" />
 
+	<br />
+	<br />
 	Value: {{ selectedItem.id }}
 	<br />
-	<input type="text" value="{{ selectedItem.name }}" disabled="disabled" />
+	Value: {{ selectedItem.name }}
 
 	<script src="../Scripts/angular.min.js"></script>
 
@@ -29,8 +32,6 @@
 
 					$scope.items =
 						[
-							//{ id: '', name: 'Select an item...' },
-
 							{ id: 1, name: 'Name 1', },
 							{ id: 2, name: 'Name 2', },
 							{ id: 3, name: 'Name 3', },
@@ -42,11 +43,12 @@
 							{ id: 9, name: 'Name 9', },
 						];
 
-					$scope.items.unshift({ id: '', name: 'Select an item...' });
-					$scope.selectedItem = $scope.items[0];
+					if ($scope.items.length != 0) {
 
-					//$scope.items.push({ id: '', name: 'Select an item...' });
-					//$scope.selectedItem = $scope.items[$scope.items.length - 1];
+						$scope.selectedItem = $scope.items[0];
+
+					}
+
 				};
 
 			varMainApplication.controller('mainController', varMainController);

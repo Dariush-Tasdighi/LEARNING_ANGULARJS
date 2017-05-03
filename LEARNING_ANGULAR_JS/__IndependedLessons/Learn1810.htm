@@ -3,87 +3,83 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="mainApplication">
 <head>
 	<title></title>
-
-	<link href="../Content/bootstrap.min.css" rel="stylesheet" />
-	<link href="../Content/bootstrap-theme.min.css" rel="stylesheet" />
-
-	<style>
-		.topMargin {
-			margin-top: 10px;
-		}
-	</style>
 </head>
 <body data-ng-controller="mainController">
 
-	<div class="container">
-		<div class="row topMargin">
-			<div class="col-sm-12">
-				<button type="button" data-ng-click="loadAndDisplayData()">Load And Display Data</button>
-			</div>
-		</div>
+	<table border="1">
+		<tr>
+			<th>
+				#
+			</th>
+			<th>
+				Full Name
+			</th>
+			<th>
+				Age
+			</th>
+		</tr>
 
-		<div class="row topMargin" data-ng-show="!!users">
-			<div class="col-sm-12 table-responsive">
-				<table class="table table-bordered table-condensed table-striped table-hover">
-					<tr>
-						<th>
-							#
-						</th>
-						<th>
-							Username
-						</th>
-						<th>
-							Full Name
-						</th>
-					</tr>
+		<tr data-ng-repeat="item in people" data-ng-click="edit(item)">
+			<td>
+				{{ $index + 1 }}
+			</td>
+			<td>
+				{{ item.fullName }}
+			</td>
+			<td>
+				{{ item.age }}
+			</td>
+		</tr>
+	</table>
 
-					<tr data-ng-repeat="item in users">
-						<td>
-							{{ $index + 1 }}
-						</td>
-						<td>
-							{{ item.username }}
-						</td>
-						<td>
-							{{ item.name }}
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+	<div data-ng-show="!!selectedPerson">
+		<hr />
+
+		Age:
+		<br />
+		<input type="number" data-ng-model="selectedPerson.age" />
+
+		<br />
+		<br />
+
+		Full Name:
+		<br />
+		<input type="text" data-ng-model="selectedPerson.fullName" />
 	</div>
 
-	<script src="../Scripts/jquery-2.2.3.min.js"></script>
-	<script src="../Scripts/bootstrap.min.js"></script>
 	<script src="../Scripts/angular.min.js"></script>
 
 	<script>
 
-		angular.module('mainApplication', []);
+		(function () {
 
-		angular.module('mainApplication')
-			.controller('mainController', function ($scope, $http) {
+			var varMainApplication =
+				angular.module('mainApplication', []);
 
-				$scope.users = null;
+			var varMainController =
+				function ($scope) {
 
-				$scope.loadAndDisplayData = function () {
+					$scope.selectedPerson = null;
 
-					$http.get('http://jsonplaceholder.typicode.com/users', null)
-						.error(function (response) {
+					$scope.people =
+						[
+							{ id: 1, fullName: 'Sara Alavi', description: 'Nothing (1)', age: 20, },
+							{ id: 2, fullName: 'Ali Rezazadeh', description: 'Nothing (2)', age: 30, },
+							{ id: 3, fullName: 'Dariush Tasdighi', description: 'Nothing (3)', age: 40, },
+							{ id: 4, fullName: 'Seyed Ali Reza Alavi', description: 'Nothing (4)', age: 50, },
+						];
 
-							console.log(response);
+					$scope.edit = function (item) {
 
-						})
-						.success(function (response) {
+						$scope.selectedPerson = item;
 
-							$scope.users = response;
-
-						})
-					;
+					};
 
 				};
 
-			});
+			varMainApplication.controller('mainController', varMainController);
+
+		})();
 
 	</script>
 </body>

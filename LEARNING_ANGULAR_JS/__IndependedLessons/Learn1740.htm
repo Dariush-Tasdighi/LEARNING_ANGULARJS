@@ -6,14 +6,20 @@
 </head>
 <body data-ng-controller="mainController">
 
-	<select data-ng-model="selectedItem" data-ng-options="item.name for item in items"></select>
+	First Name
+	<br />
+	<input type="text" data-ng-model="firstName" />
 
 	<br />
 	<br />
 
-	Value: {{ selectedItem.id }}
+	Last Name
 	<br />
-	<input type="text" value="{{ selectedItem.name }}" disabled="disabled" />
+	<input type="text" data-ng-model="lastName" />
+
+	<br />
+	<br />
+	Full Name: {{ fullName }}!
 
 	<script src="../Scripts/angular.min.js"></script>
 
@@ -27,30 +33,41 @@
 			var varMainController =
 				function ($scope) {
 
-					$scope.items =
-						[
-							{ id: 1, name: 'Name 1', },
-							{ id: 2, name: 'Name 2', },
-							{ id: 3, name: 'Name 3', },
-							{ id: 4, name: 'Name 4', },
-							{ id: 5, name: 'Name 5', },
-							{ id: 6, name: 'Name 6', },
-							{ id: 7, name: 'Name 7', },
-							{ id: 8, name: 'Name 8', },
-							{ id: 9, name: 'Name 9', },
-						];
+					$scope.lastName = '';
+					$scope.firstName = '';
 
-					if ($scope.items.length != 0) {
+					$scope.fullName = '';
 
-						$scope.selectedItem = $scope.items[0];
+					$scope.getFullName = function () {
 
-					}
+						return ($scope.firstName + ' ' + $scope.lastName);
+
+					};
+
+					$scope.$watch('firstName', function () {
+
+						updateFullName($scope);
+
+					});
+
+					$scope.$watch('lastName', function () {
+
+						updateFullName($scope);
+
+					});
 
 				};
 
 			varMainApplication.controller('mainController', varMainController);
 
 		})();
+
+		function updateFullName($scope) {
+
+			$scope.fullName =
+				$scope.firstName + ' ' + $scope.lastName;
+
+		}
 
 	</script>
 </body>

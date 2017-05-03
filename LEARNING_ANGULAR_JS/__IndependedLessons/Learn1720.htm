@@ -19,6 +19,14 @@
 
 	<br />
 	<br />
+	Full Name: {{ firstName + ' '  + lastName }}!
+
+	<br />
+	<br />
+	Full Name: {{ getFullName() }}!
+
+	<br />
+	<br />
 	Full Name: {{ fullName }}!
 
 	<script src="../Scripts/angular.min.js"></script>
@@ -46,13 +54,13 @@
 
 					$scope.$watch('firstName', function () {
 
-						updateFullName($scope);
+						$scope.fullName = $scope.getFullName();
 
 					});
 
 					$scope.$watch('lastName', function () {
 
-						updateFullName($scope);
+						$scope.fullName = $scope.getFullName();
 
 					});
 
@@ -61,13 +69,6 @@
 			varMainApplication.controller('mainController', varMainController);
 
 		})();
-
-		function updateFullName($scope) {
-
-			$scope.fullName =
-				$scope.firstName + ' ' + $scope.lastName;
-
-		}
 
 	</script>
 </body>

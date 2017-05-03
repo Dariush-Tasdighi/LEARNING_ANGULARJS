@@ -6,16 +6,16 @@
 </head>
 <body data-ng-controller="mainController">
 
-	<select data-ng-model="selectedItem" data-ng-options="(item.id + ' - ' + item.name) for item in items"></select>
+	<select data-ng-model="selectedItem">
+		<option data-ng-repeat="item in items" value="{{ item.id }}">
+			{{ item.name }}
+		</option>
+	</select>
 
 	<br />
 	<br />
 
-	Value: {{ selectedItem.id }}
-	<br />
-	Name: {{ selectedItem.name }}
-	<br />
-	Description: {{ selectedItem.description }}
+	<input type="text" value="{{ selectedItem.name }}" disabled="disabled" />
 
 	<script src="../Scripts/angular.min.js"></script>
 
@@ -31,22 +31,18 @@
 
 					$scope.items =
 						[
-							{ id: 1, name: 'Name 1', description: 'Description 1', },
-							{ id: 2, name: 'Name 2', description: 'Description 2', },
-							{ id: 3, name: 'Name 3', description: 'Description 3', },
-							{ id: 4, name: 'Name 4', description: 'Description 4', },
-							{ id: 5, name: 'Name 5', description: 'Description 5', },
-							{ id: 6, name: 'Name 6', description: 'Description 6', },
-							{ id: 7, name: 'Name 7', description: 'Description 7', },
-							{ id: 8, name: 'Name 8', description: 'Description 8', },
-							{ id: 9, name: 'Name 9', description: 'Description 9', },
+							{ id: 1, name: 'Name 1', },
+							{ id: 2, name: 'Name 2', },
+							{ id: 3, name: 'Name 3', },
+							{ id: 4, name: 'Name 4', },
+							{ id: 5, name: 'Name 5', },
+							{ id: 6, name: 'Name 6', },
+							{ id: 7, name: 'Name 7', },
+							{ id: 8, name: 'Name 8', },
+							{ id: 9, name: 'Name 9', },
 						];
 
-					if ($scope.items.length != 0) {
-
-						$scope.selectedItem = $scope.items[0];
-
-					}
+					$scope.selectedItem = null;
 
 				};
 
