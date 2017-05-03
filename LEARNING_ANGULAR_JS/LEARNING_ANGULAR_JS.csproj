@@ -20,8 +20,9 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
     <NuGetPackageImportStamp>4f96e15c</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1019,6 +1020,8 @@
     <Content Include="__IndependedLessons\Learn1160.htm" />
     <Content Include="__IndependedLessons\Learn1150.htm" />
     <Content Include="__IndependedLessons\Learn1140.htm" />
+    <Content Include="__IndependedLessons\Learn1175.htm" />
+    <Content Include="__IndependedLessons\Learn1205.htm" />
     <Content Include="__IndependedLessons\Learn1220.htm" />
     <Content Include="__IndependedLessons\Learn1250.htm" />
     <Content Include="__IndependedLessons\Learn1260.htm" />
@@ -1034,6 +1037,7 @@
     <Content Include="__IndependedLessons\Learn1520.htm" />
     <Content Include="__IndependedLessons\Learn1550.htm" />
     <Content Include="__IndependedLessons\Learn1540.htm" />
+    <Content Include="__IndependedLessons\Learn1585.htm" />
     <Content Include="__IndependedLessons\Learn1580.htm" />
     <Content Include="__IndependedLessons\Learn1570.htm" />
     <Content Include="__IndependedLessons\Learn1560.htm" />
@@ -1085,7 +1089,6 @@
     <Content Include="__IndependedLessons\Learn1300.htm" />
     <Content Include="__IndependedLessons\Learn1290.htm" />
     <Content Include="__IndependedLessons\Learn1280.htm" />
-    <Content Include="__IndependedLessons\Learn1270.htm" />
     <Content Include="__IndependedLessons\Learn1240.htm" />
     <Content Include="__IndependedLessons\Learn1230.htm" />
     <Content Include="__IndependedLessons\Learn1210.htm" />

@@ -55,27 +55,24 @@
 
 	<script>
 
-		(function () {
+		angular.module('mainApplication', []);
 
-			var varMainApplication =
-				angular.module('mainApplication', []);
+		angular.module('mainApplication')
 
-			var varMainController =
-				function ($scope) {
+			.controller('mainController', function ($scope) {
 
-					$scope.people =
-						[
-							{ fullName: 'Sara Alavi', age: 20, },
-							{ fullName: 'Ali Rezazadeh', age: 30, },
-							{ fullName: 'Dariush Tasdighi', age: 40, },
-							{ fullName: 'Seyed Ali Reza Alavi', age: 50, },
-						];
+				$scope.search = '';
 
-				};
+				$scope.people =
+					[
+						{ fullName: 'Sara Alavi', age: 20, },
+						{ fullName: 'Ali Rezazadeh', age: 30, },
+						{ fullName: 'Dariush Tasdighi', age: 40, },
+						{ fullName: 'Seyed Ali Reza Alavi', age: 50, },
+					];
 
-			varMainApplication.controller('mainController', varMainController);
-
-		})();
+			})
+			;
 
 	</script>
 </body>

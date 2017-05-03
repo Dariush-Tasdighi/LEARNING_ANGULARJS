@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app>
+<head>
+	<title></title>
+</head>
+<body data-ng-init="currencyRate=37500">
+	Dollar:
+	<input type="text" data-ng-model="dollar" />
+	<br />
+	<br />
+	Dollar: {{ dollar | number : 2 }}
+	<br />
+	Rials: {{ dollar * currencyRate | number : 0 }}
+	<br />
+	Tomans: {{ dollar * currencyRate / 10 | number : 0 }}
+
+	<script src="../Scripts/angular.min.js"></script>
+</body>
+</html>

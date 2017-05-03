@@ -48,30 +48,27 @@
 
 	<script>
 
-		(function () {
+		angular.module('mainApplication', []);
 
-			var varMainApplication =
-				angular.module('mainApplication', []);
+		angular.module('mainApplication')
 
-			var varMainController =
-				function ($scope) {
+			.controller('mainController', function ($scope) {
 
-					$scope.people =
-						[
-							{ fullName: 'Sara Alavi', age: 20, },
-							{ fullName: 'Ali Rezazadeh', age: 30, },
-							{ fullName: 'Dariush Tasdighi', age: 20, },
-							{ fullName: 'Ali Reza Alavi', age: 50, },
-							{ fullName: 'Sanaz Yousefi', age: 20, },
-							{ fullName: 'Mohammad Ghaderi', age: 50, },
-							{ fullName: 'Erfan Sedghi', age: 20, },
-						];
+				$scope.take = null;
 
-				};
+				$scope.people =
+					[
+						{ fullName: 'Sara Alavi', age: 20, },
+						{ fullName: 'Ali Rezazadeh', age: 30, },
+						{ fullName: 'Dariush Tasdighi', age: 20, },
+						{ fullName: 'Ali Reza Alavi', age: 50, },
+						{ fullName: 'Sanaz Yousefi', age: 20, },
+						{ fullName: 'Mohammad Ghaderi', age: 50, },
+						{ fullName: 'Erfan Sedghi', age: 20, },
+					];
 
-			varMainApplication.controller('mainController', varMainController);
-
-		}());
+			})
+			;
 
 	</script>
 </body>

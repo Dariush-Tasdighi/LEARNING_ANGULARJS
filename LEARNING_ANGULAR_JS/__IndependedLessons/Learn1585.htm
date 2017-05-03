@@ -6,6 +6,15 @@
 </head>
 <body data-ng-controller="mainController">
 
+	<!--با تشکر از آقای مهندس خلیل آقاجان زاده-->
+
+	<!--
+	این روش به معنی تجمیع هر دو شرط می‌باشد
+	بدین معنا که اگر کلمه‌ای  در قسمت جستجو بنویسیم
+	تمام اشخاصی را می‌آورد که هم در نام و هم در نام خانوادگی آنها
+	کلمه مورد نظر وجود دارد
+	-->
+
 	<fieldset>
 		<legend>
 			Search
@@ -41,7 +50,7 @@
 			</th>
 		</tr>
 
-		<tr data-ng-repeat="item in people | filter: filterFunction">
+		<tr data-ng-repeat="item in people | filter: {firstName: search, lastName: search}">
 			<td>
 				{{ $index + 1 }}
 			</td>
@@ -82,32 +91,6 @@
 						{ firstName: 'Dariush', lastName: 'Tasdighi', age: 40, },
 						{ firstName: 'Seyed Ali Reza', lastName: 'Alavi', age: 50, },
 					];
-
-				$scope.filterFunction = function (passeditem) {
-
-					if (($scope.search == null) ||
-						($scope.search == '')) {
-
-						return (true);
-
-					}
-					else {
-
-						if ((passeditem.lastName.toUpperCase().match($scope.search.toUpperCase())) ||
-							(passeditem.firstName.toUpperCase().match($scope.search.toUpperCase()))) {
-
-							return (true);
-
-						}
-						else {
-
-							return (false);
-
-						}
-
-					}
-
-				};
 
 			})
 			;
