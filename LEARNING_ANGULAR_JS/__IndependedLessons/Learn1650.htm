@@ -41,33 +41,28 @@
 
 	<script>
 
-		(function () {
+		angular.module('mainApplication', []);
 
-			var varMainApplication =
-				angular.module('mainApplication', []);
+		angular.module('mainApplication')
 
-			var varMainController =
-				function ($scope) {
+			.controller('mainController', function ($scope) {
 
-					$scope.people =
-						[
-							{ id: 1, fullName: 'Sara Alavi', description: 'Nothing (1)', age: 20, },
-							{ id: 2, fullName: 'Ali Rezazadeh', description: 'Nothing (2)', age: 30, },
-							{ id: 3, fullName: 'Dariush Tasdighi', description: 'Nothing (3)', age: 40, },
-							{ id: 4, fullName: 'Seyed Ali Reza Alavi', description: 'Nothing (4)', age: 50, },
-						];
+				$scope.people =
+					[
+						{ id: 1, fullName: 'Sara Alavi', description: 'Nothing (1)', age: 20, },
+						{ id: 2, fullName: 'Ali Rezazadeh', description: 'Nothing (2)', age: 30, },
+						{ id: 3, fullName: 'Dariush Tasdighi', description: 'Nothing (3)', age: 40, },
+						{ id: 4, fullName: 'Seyed Ali Reza Alavi', description: 'Nothing (4)', age: 50, },
+					];
 
-					$scope.display = function (description) {
+				$scope.display = function (description) {
 
-						alert(description);
-
-					};
+					alert(description);
 
 				};
 
-			varMainApplication.controller('mainController', varMainController);
-
-		}());
+			})
+			;
 
 	</script>
 </body>

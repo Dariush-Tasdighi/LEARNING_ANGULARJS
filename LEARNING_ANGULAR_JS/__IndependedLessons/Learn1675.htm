@@ -45,7 +45,17 @@
 				<button type="button" data-ng-click="minus(item)">-</button>
 			</td>
 			<td>
-				{{ item.count * item.price }}
+				{{ getSubTotal(item) }}
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="5">
+				Total
+			</td>
+			<td>
+				{{ getTotal() }}
+
 			</td>
 		</tr>
 	</table>
@@ -86,6 +96,58 @@
 						item.count--;
 
 					}
+
+				};
+
+				$scope.getSubTotal = function (item) {
+
+					//return (item.count * item.price);
+
+					if (item.count < 5) {
+
+						return (item.count * item.price);
+
+					}
+					else {
+
+						return (item.count * item.price * (95 / 100));
+
+					}
+
+				};
+
+				$scope.getTotal = function () {
+
+					var varTotal = 0;
+
+					// Solution (1)
+					//for (var intIndex = 0; intIndex <= $scope.items.length - 1; intIndex++) {
+
+					//	varTotal +=
+					//		$scope.items[intIndex].price * $scope.items[intIndex].count;
+
+					//}
+					// /Solution (1)
+
+					// Solution (2)
+					//angular.forEach($scope.items, function (item, index) {
+
+					//	varTotal +=
+					//		item.price * item.count;
+
+					//});
+					// /Solution (2)
+
+					// Solution (3)
+					angular.forEach($scope.items, function (item, index) {
+
+						varTotal +=
+							$scope.getSubTotal(item);
+
+					});
+					// /Solution (3)
+
+					return (varTotal);
 
 				};
 

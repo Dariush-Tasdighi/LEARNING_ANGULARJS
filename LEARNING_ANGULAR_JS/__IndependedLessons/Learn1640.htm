@@ -6,8 +6,10 @@
 </head>
 <body data-ng-controller="mainController">
 
+	<!--Error!-->
 	<!--<button data-ng-click="doSomething()">Click Me!</button>-->
 
+	<!--Error!-->
 	<!--<button type="button" data-ng-click="doSomething">Click Me!</button>-->
 
 	<button type="button" data-ng-click="doSomething()">Click Me!</button>
@@ -16,25 +18,20 @@
 
 	<script>
 
-		(function () {
+		angular.module('mainApplication', []);
 
-			var varMainApplication =
-				angular.module('mainApplication', []);
+		angular.module('mainApplication')
 
-			var varMainController =
-				function ($scope) {
+			.controller('mainController', function ($scope) {
 
-					$scope.doSomething = function () {
+				$scope.doSomething = function () {
 
-						alert('Hello World!');
+					alert('Hello World!');
 
-					};
+				}; // یادتون نره (;)
 
-				};
-
-			varMainApplication.controller('mainController', varMainController);
-
-		})();
+			})
+			;
 
 	</script>
 </body>
