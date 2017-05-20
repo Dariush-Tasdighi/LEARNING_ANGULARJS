@@ -1,10 +1,9 @@
 ﻿//namespace LEARNING_ANGULAR_JS.Models
 namespace Models
 {
-	public abstract class BaseEntity : System.Object
+	public abstract class BaseEntity : object
 	{
-		public BaseEntity()
-			: base()
+		public BaseEntity() : base()
 		{
 			// Note: Wrong Usage!
 			//Id = new System.Guid();

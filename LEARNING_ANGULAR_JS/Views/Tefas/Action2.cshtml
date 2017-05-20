@@ -1,0 +1,74 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Action 2</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="~/Content/TefasSite.css" rel="stylesheet" />
+</head>
+<body data-ng-controller="mainController" data-ng-cloak>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-primary" data-ng-click="getPerson()">Get Person</button>
+			</div>
+		</div>
+
+		<div class="row" data-ng-if="!!person">
+			<div class="col-xs-12">
+				First Name: {{person.FirstName}}
+				<br />
+				Last Name: {{person.LastName}}
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.person = null;
+
+				$scope.getPerson = function () {
+
+					//alert('1');
+
+					$http.post('/Tefas/GetData1', null)
+
+						.then(function successCallback(response) {
+
+							//alert('2');
+
+							$scope.person = response.data;
+
+						}, function errorCallback(response) {
+
+							//alert('3');
+
+							console.log(response);
+
+						});
+
+				};
+
+			});
+
+	</script>
+</body>
+</html>

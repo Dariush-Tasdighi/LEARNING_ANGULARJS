@@ -1,0 +1,59 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Action 1</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="~/Content/TefasSite.css" rel="stylesheet" />
+</head>
+<body data-ng-controller="mainController" data-ng-cloak>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xs-12">
+				First Name: {{person.FirstName}}
+				<br />
+				Last Name: {{person.LastName}}
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+			.controller('mainController', function ($scope, $http) {
+
+				//$scope.person = {};
+				$scope.person = null;
+
+				$http.post('/Tefas/GetData1', null)
+
+					.then(function successCallback(response) {
+
+						$scope.person = response.data;
+
+					}, function errorCallback(response) {
+
+						console.log(response);
+
+					});
+
+			});
+
+	</script>
+</body>
+</html>

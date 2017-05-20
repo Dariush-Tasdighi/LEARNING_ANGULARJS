@@ -3,7 +3,7 @@ namespace Models
 {
 	public class Person : BaseEntity
 	{
-		public Person()
+		public Person() : base()
 		{
 		}
 

@@ -1,0 +1,90 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Action 4</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="~/Content/TefasSite.css" rel="stylesheet" />
+</head>
+<body data-ng-controller="mainController" data-ng-cloak>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xs-12">
+				<button type="button" id="btnGetPerson" class="btn btn-primary" data-ng-click="getPerson()">Get Person</button>
+			</div>
+		</div>
+
+		<div class="row" data-ng-if="!!person">
+			<div class="col-xs-12">
+				First Name: {{person.FirstName}}
+				<br />
+				Last Name: {{person.LastName}}
+			</div>
+		</div>
+
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">
+						Loading...
+					</h4>
+				</div>
+				<div class="modal-body">
+					Please Wait!
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.person = null;
+
+				$scope.getPerson = function () {
+
+					$('div#myLoadingModal').modal({ keyboard: false, backdrop: false });
+
+					$http.post('/Tefas/GetData2', null)
+
+						.then(function successCallback(response) {
+
+							$('div#myLoadingModal').modal('toggle');
+
+							$scope.person = response.data;
+
+						}, function errorCallback(response) {
+
+							$('div#myLoadingModal').modal('toggle');
+
+							console.log(response);
+
+						});
+
+				};
+
+			});
+
+	</script>
+</body>
+</html>
