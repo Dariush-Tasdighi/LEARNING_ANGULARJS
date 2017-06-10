@@ -1,0 +1,179 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Action 6</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="~/Content/TefasSite.css" rel="stylesheet" />
+</head>
+<body data-ng-controller="mainController" data-ng-cloak>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-primary" data-ng-click="search()">Search</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 table-responsive">
+				<table class="table table-bordered table-condensed table-striped table-hover">
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							First Name
+						</th>
+						<th>
+							Last Name
+						</th>
+						<th>
+							Age
+						</th>
+					</tr>
+
+					<tr data-ng-repeat="item in items">
+						<td>
+							{{ pageIndex * pageSize + $index + 1 }}
+						</td>
+						<td>
+							{{ item.FirstName }}
+						</td>
+						<td>
+							{{ item.LastName }}
+						</td>
+						<td>
+							{{ item.Age }}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<select class="form-control" data-ng-model="pageSize" data-ng-options="item for item in pageSizes"></select>
+			</div>
+			<div class="col-xs-2">
+				<button type="button" class="btn btn-primary btn-sm" data-ng-click="goToPreviousPage()">Prev</button>
+				<button type="button" class="btn btn-primary btn-sm" data-ng-click="goToNextPage()">Next</button>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">
+						Loading...
+					</h4>
+				</div>
+				<div class="modal-body">
+					Please Wait!
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.count = 0;
+				$scope.items = [];
+
+				$scope.pageIndex = 0;
+				$scope.pageSize = 10;
+				$scope.pageSizes = [5, 10, 20, 50, 100, 200];
+
+				getData($scope, $http);
+
+				//$scope.search = function () {
+
+				//	getData($scope, $http);
+
+				//};
+
+				$scope.search = function () {
+
+					getData($scope, $http);
+
+				};
+
+				$scope.goToNextPage = function () {
+
+					$scope.pageIndex++;
+
+					getData($scope, $http);
+
+				};
+
+				$scope.goToPreviousPage = function () {
+
+					if ($scope.pageIndex > 0) {
+
+						$scope.pageIndex--;
+
+						getData($scope, $http);
+
+					}
+
+				};
+
+			});
+
+		function getData($scope, $http) {
+
+			$('div#myLoadingModal').modal({ keyboard: false, backdrop: false });
+
+			var varRequest =
+				{
+					pageSize: $scope.pageSize,
+					pageIndex: $scope.pageIndex,
+				};
+
+			$http.post('/Tefas/GetData5', varRequest)
+
+				.then(function successCallback(response) {
+
+					$('div#myLoadingModal').modal('toggle');
+
+					$scope.count = response.data.Count;
+					$scope.items = response.data.Data;
+
+				}, function errorCallback(response) {
+
+					$('div#myLoadingModal').modal('toggle');
+
+					console.log(response);
+
+				});
+
+		}
+
+	</script>
+</body>
+</html>

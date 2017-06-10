@@ -20,7 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
     <NuGetPackageImportStamp>4f96e15c</NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -1155,6 +1155,9 @@
     <Content Include="Views\Tefas\Action2.cshtml" />
     <Content Include="Views\Tefas\Action3.cshtml" />
     <Content Include="Views\Tefas\Action4.cshtml" />
+    <Content Include="Views\Tefas\Action5.cshtml" />
+    <Content Include="Views\Tefas\Action6.cshtml" />
+    <Content Include="Views\Tefas\Action7.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1201,6 +1204,7 @@
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\BaseGridViewModel.cs" />
     <Compile Include="Infrastructure\Enums\JsonResultStates.cs" />
     <Compile Include="Infrastructure\HtmlHelpers.cs" />
     <Compile Include="Infrastructure\JsonData.cs" />

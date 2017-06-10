@@ -1,0 +1,122 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="mainApplication">
+<head>
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Action 5</title>
+
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="~/Content/TefasSite.css" rel="stylesheet" />
+</head>
+<body data-ng-controller="mainController" data-ng-cloak>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-3">
+				First Name
+			</div>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" data-ng-model="person.firstName" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-3">
+				Last Name
+			</div>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" data-ng-model="person.lastName" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-3">
+				Age
+			</div>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" data-ng-model="person.age" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3">
+				<button type="button" class="btn btn-primary" data-ng-click="createPerson()">Create</button>
+			</div>
+		</div>
+
+		<div class="row" data-ng-if="!!recentPerson">
+			<div class="col-xs-12">
+				Active: <input type="checkbox" data-ng-click="recentPerson.IsActive" disabled />
+				<br />
+				First Name: {{recentPerson.FirstName}}
+				<br />
+				Last Name: {{recentPerson.LastName}}
+				<br />
+				Id: {{recentPerson.Id}}
+			</div>
+		</div>
+
+	</div>
+
+	<div id="myLoadingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoadingModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLoadingModalLabel">
+						Loading...
+					</h4>
+				</div>
+				<div class="modal-body">
+					Please Wait!
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+	<script src="~/Scripts/angular.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+
+	<script>
+
+		angular.module('mainApplication', []);
+
+		angular.module('mainApplication')
+			.controller('mainController', function ($scope, $http) {
+
+				$scope.person = null;
+				$scope.recentPerson = null;
+
+				$scope.createPerson = function () {
+
+					$('div#myLoadingModal').modal({ keyboard: false, backdrop: false });
+
+					$http.post('/Tefas/GetData3', $scope.person)
+
+						.then(function successCallback(response) {
+
+							$('div#myLoadingModal').modal('toggle');
+
+							$scope.recentPerson = response.data;
+
+						}, function errorCallback(response) {
+
+							$('div#myLoadingModal').modal('toggle');
+
+							console.log(response);
+
+						});
+
+				};
+
+			});
+
+	</script>
+</body>
+</html>
